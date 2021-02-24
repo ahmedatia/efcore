@@ -5,6 +5,8 @@ using System;
 using System.Linq.Expressions;
 using JetBrains.Annotations;
 
+#nullable enable
+
 namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
 {
     /// <summary>
@@ -41,7 +43,7 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     any release. You should only use it directly in your code with extreme caution and knowing that
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
-        public object this[int index]
+        public object? this[int index]
         {
             get => throw new IndexOutOfRangeException();
             set => throw new IndexOutOfRangeException();
@@ -53,7 +55,7 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     any release. You should only use it directly in your code with extreme caution and knowing that
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
-        public T GetValue<T>(int index)
+        public T? GetValue<T>(int index)
         {
             throw new IndexOutOfRangeException();
         }
@@ -90,71 +92,40 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         /// </summary>
         public static Type CreateSnapshotType([NotNull] Type[] types)
         {
-            switch (types.Length)
+            return types.Length switch
             {
-                case 1:
-                    return typeof(Snapshot<>).MakeGenericType(types);
-                case 2:
-                    return typeof(Snapshot<,>).MakeGenericType(types);
-                case 3:
-                    return typeof(Snapshot<,,>).MakeGenericType(types);
-                case 4:
-                    return typeof(Snapshot<,,,>).MakeGenericType(types);
-                case 5:
-                    return typeof(Snapshot<,,,,>).MakeGenericType(types);
-                case 6:
-                    return typeof(Snapshot<,,,,,>).MakeGenericType(types);
-                case 7:
-                    return typeof(Snapshot<,,,,,,>).MakeGenericType(types);
-                case 8:
-                    return typeof(Snapshot<,,,,,,,>).MakeGenericType(types);
-                case 9:
-                    return typeof(Snapshot<,,,,,,,,>).MakeGenericType(types);
-                case 10:
-                    return typeof(Snapshot<,,,,,,,,,>).MakeGenericType(types);
-                case 11:
-                    return typeof(Snapshot<,,,,,,,,,,>).MakeGenericType(types);
-                case 12:
-                    return typeof(Snapshot<,,,,,,,,,,,>).MakeGenericType(types);
-                case 13:
-                    return typeof(Snapshot<,,,,,,,,,,,,>).MakeGenericType(types);
-                case 14:
-                    return typeof(Snapshot<,,,,,,,,,,,,,>).MakeGenericType(types);
-                case 15:
-                    return typeof(Snapshot<,,,,,,,,,,,,,,>).MakeGenericType(types);
-                case 16:
-                    return typeof(Snapshot<,,,,,,,,,,,,,,,>).MakeGenericType(types);
-                case 17:
-                    return typeof(Snapshot<,,,,,,,,,,,,,,,,>).MakeGenericType(types);
-                case 18:
-                    return typeof(Snapshot<,,,,,,,,,,,,,,,,,>).MakeGenericType(types);
-                case 19:
-                    return typeof(Snapshot<,,,,,,,,,,,,,,,,,,>).MakeGenericType(types);
-                case 20:
-                    return typeof(Snapshot<,,,,,,,,,,,,,,,,,,,>).MakeGenericType(types);
-                case 21:
-                    return typeof(Snapshot<,,,,,,,,,,,,,,,,,,,,>).MakeGenericType(types);
-                case 22:
-                    return typeof(Snapshot<,,,,,,,,,,,,,,,,,,,,,>).MakeGenericType(types);
-                case 23:
-                    return typeof(Snapshot<,,,,,,,,,,,,,,,,,,,,,,>).MakeGenericType(types);
-                case 24:
-                    return typeof(Snapshot<,,,,,,,,,,,,,,,,,,,,,,,>).MakeGenericType(types);
-                case 25:
-                    return typeof(Snapshot<,,,,,,,,,,,,,,,,,,,,,,,,>).MakeGenericType(types);
-                case 26:
-                    return typeof(Snapshot<,,,,,,,,,,,,,,,,,,,,,,,,,>).MakeGenericType(types);
-                case 27:
-                    return typeof(Snapshot<,,,,,,,,,,,,,,,,,,,,,,,,,,>).MakeGenericType(types);
-                case 28:
-                    return typeof(Snapshot<,,,,,,,,,,,,,,,,,,,,,,,,,,,>).MakeGenericType(types);
-                case 29:
-                    return typeof(Snapshot<,,,,,,,,,,,,,,,,,,,,,,,,,,,,>).MakeGenericType(types);
-                case 30:
-                    return typeof(Snapshot<,,,,,,,,,,,,,,,,,,,,,,,,,,,,,>).MakeGenericType(types);
-            }
-
-            throw new IndexOutOfRangeException();
+                1 => typeof(Snapshot<>).MakeGenericType(types),
+                2 => typeof(Snapshot<,>).MakeGenericType(types),
+                3 => typeof(Snapshot<,,>).MakeGenericType(types),
+                4 => typeof(Snapshot<,,,>).MakeGenericType(types),
+                5 => typeof(Snapshot<,,,,>).MakeGenericType(types),
+                6 => typeof(Snapshot<,,,,,>).MakeGenericType(types),
+                7 => typeof(Snapshot<,,,,,,>).MakeGenericType(types),
+                8 => typeof(Snapshot<,,,,,,,>).MakeGenericType(types),
+                9 => typeof(Snapshot<,,,,,,,,>).MakeGenericType(types),
+                10 => typeof(Snapshot<,,,,,,,,,>).MakeGenericType(types),
+                11 => typeof(Snapshot<,,,,,,,,,,>).MakeGenericType(types),
+                12 => typeof(Snapshot<,,,,,,,,,,,>).MakeGenericType(types),
+                13 => typeof(Snapshot<,,,,,,,,,,,,>).MakeGenericType(types),
+                14 => typeof(Snapshot<,,,,,,,,,,,,,>).MakeGenericType(types),
+                15 => typeof(Snapshot<,,,,,,,,,,,,,,>).MakeGenericType(types),
+                16 => typeof(Snapshot<,,,,,,,,,,,,,,,>).MakeGenericType(types),
+                17 => typeof(Snapshot<,,,,,,,,,,,,,,,,>).MakeGenericType(types),
+                18 => typeof(Snapshot<,,,,,,,,,,,,,,,,,>).MakeGenericType(types),
+                19 => typeof(Snapshot<,,,,,,,,,,,,,,,,,,>).MakeGenericType(types),
+                20 => typeof(Snapshot<,,,,,,,,,,,,,,,,,,,>).MakeGenericType(types),
+                21 => typeof(Snapshot<,,,,,,,,,,,,,,,,,,,,>).MakeGenericType(types),
+                22 => typeof(Snapshot<,,,,,,,,,,,,,,,,,,,,,>).MakeGenericType(types),
+                23 => typeof(Snapshot<,,,,,,,,,,,,,,,,,,,,,,>).MakeGenericType(types),
+                24 => typeof(Snapshot<,,,,,,,,,,,,,,,,,,,,,,,>).MakeGenericType(types),
+                25 => typeof(Snapshot<,,,,,,,,,,,,,,,,,,,,,,,,>).MakeGenericType(types),
+                26 => typeof(Snapshot<,,,,,,,,,,,,,,,,,,,,,,,,,>).MakeGenericType(types),
+                27 => typeof(Snapshot<,,,,,,,,,,,,,,,,,,,,,,,,,,>).MakeGenericType(types),
+                28 => typeof(Snapshot<,,,,,,,,,,,,,,,,,,,,,,,,,,,>).MakeGenericType(types),
+                29 => typeof(Snapshot<,,,,,,,,,,,,,,,,,,,,,,,,,,,,>).MakeGenericType(types),
+                30 => typeof(Snapshot<,,,,,,,,,,,,,,,,,,,,,,,,,,,,,>).MakeGenericType(types),
+                _ => throw new IndexOutOfRangeException(),
+            };
         }
     }
 
@@ -190,36 +161,36 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
         public Snapshot(
-            [CanBeNull] T0 value0,
-            [CanBeNull] T1 value1,
-            [CanBeNull] T2 value2,
-            [CanBeNull] T3 value3,
-            [CanBeNull] T4 value4,
-            [CanBeNull] T5 value5,
-            [CanBeNull] T6 value6,
-            [CanBeNull] T7 value7,
-            [CanBeNull] T8 value8,
-            [CanBeNull] T9 value9,
-            [CanBeNull] T10 value10,
-            [CanBeNull] T11 value11,
-            [CanBeNull] T12 value12,
-            [CanBeNull] T13 value13,
-            [CanBeNull] T14 value14,
-            [CanBeNull] T15 value15,
-            [CanBeNull] T16 value16,
-            [CanBeNull] T17 value17,
-            [CanBeNull] T18 value18,
-            [CanBeNull] T19 value19,
-            [CanBeNull] T20 value20,
-            [CanBeNull] T21 value21,
-            [CanBeNull] T22 value22,
-            [CanBeNull] T23 value23,
-            [CanBeNull] T24 value24,
-            [CanBeNull] T25 value25,
-            [CanBeNull] T26 value26,
-            [CanBeNull] T27 value27,
-            [CanBeNull] T28 value28,
-            [CanBeNull] T29 value29)
+            [CanBeNull] T0? value0,
+            [CanBeNull] T1? value1,
+            [CanBeNull] T2? value2,
+            [CanBeNull] T3? value3,
+            [CanBeNull] T4? value4,
+            [CanBeNull] T5? value5,
+            [CanBeNull] T6? value6,
+            [CanBeNull] T7? value7,
+            [CanBeNull] T8? value8,
+            [CanBeNull] T9? value9,
+            [CanBeNull] T10? value10,
+            [CanBeNull] T11? value11,
+            [CanBeNull] T12? value12,
+            [CanBeNull] T13? value13,
+            [CanBeNull] T14? value14,
+            [CanBeNull] T15? value15,
+            [CanBeNull] T16? value16,
+            [CanBeNull] T17? value17,
+            [CanBeNull] T18? value18,
+            [CanBeNull] T19? value19,
+            [CanBeNull] T20? value20,
+            [CanBeNull] T21? value21,
+            [CanBeNull] T22? value22,
+            [CanBeNull] T23? value23,
+            [CanBeNull] T24? value24,
+            [CanBeNull] T25? value25,
+            [CanBeNull] T26? value26,
+            [CanBeNull] T27? value27,
+            [CanBeNull] T28? value28,
+            [CanBeNull] T29? value29)
         {
             _value0 = value0;
             _value1 = value1;
@@ -253,36 +224,36 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
             _value29 = value29;
         }
 
-        private T0 _value0;
-        private T1 _value1;
-        private T2 _value2;
-        private T3 _value3;
-        private T4 _value4;
-        private T5 _value5;
-        private T6 _value6;
-        private T7 _value7;
-        private T8 _value8;
-        private T9 _value9;
-        private T10 _value10;
-        private T11 _value11;
-        private T12 _value12;
-        private T13 _value13;
-        private T14 _value14;
-        private T15 _value15;
-        private T16 _value16;
-        private T17 _value17;
-        private T18 _value18;
-        private T19 _value19;
-        private T20 _value20;
-        private T21 _value21;
-        private T22 _value22;
-        private T23 _value23;
-        private T24 _value24;
-        private T25 _value25;
-        private T26 _value26;
-        private T27 _value27;
-        private T28 _value28;
-        private T29 _value29;
+        private T0? _value0;
+        private T1? _value1;
+        private T2? _value2;
+        private T3? _value3;
+        private T4? _value4;
+        private T5? _value5;
+        private T6? _value6;
+        private T7? _value7;
+        private T8? _value8;
+        private T9? _value9;
+        private T10? _value10;
+        private T11? _value11;
+        private T12? _value12;
+        private T13? _value13;
+        private T14? _value14;
+        private T15? _value15;
+        private T16? _value16;
+        private T17? _value17;
+        private T18? _value18;
+        private T19? _value19;
+        private T20? _value20;
+        private T21? _value21;
+        private T22? _value22;
+        private T23? _value23;
+        private T24? _value24;
+        private T25? _value25;
+        private T26? _value26;
+        private T27? _value27;
+        private T28? _value28;
+        private T29? _value29;
 
         /// <summary>
         ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
@@ -300,76 +271,42 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     any release. You should only use it directly in your code with extreme caution and knowing that
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
-        public object this[int index]
+        public object? this[int index]
         {
-            get
+            get => index switch
             {
-                switch (index)
-                {
-                    case 0:
-                        return _value0;
-                    case 1:
-                        return _value1;
-                    case 2:
-                        return _value2;
-                    case 3:
-                        return _value3;
-                    case 4:
-                        return _value4;
-                    case 5:
-                        return _value5;
-                    case 6:
-                        return _value6;
-                    case 7:
-                        return _value7;
-                    case 8:
-                        return _value8;
-                    case 9:
-                        return _value9;
-                    case 10:
-                        return _value10;
-                    case 11:
-                        return _value11;
-                    case 12:
-                        return _value12;
-                    case 13:
-                        return _value13;
-                    case 14:
-                        return _value14;
-                    case 15:
-                        return _value15;
-                    case 16:
-                        return _value16;
-                    case 17:
-                        return _value17;
-                    case 18:
-                        return _value18;
-                    case 19:
-                        return _value19;
-                    case 20:
-                        return _value20;
-                    case 21:
-                        return _value21;
-                    case 22:
-                        return _value22;
-                    case 23:
-                        return _value23;
-                    case 24:
-                        return _value24;
-                    case 25:
-                        return _value25;
-                    case 26:
-                        return _value26;
-                    case 27:
-                        return _value27;
-                    case 28:
-                        return _value28;
-                    case 29:
-                        return _value29;
-                    default:
-                        throw new IndexOutOfRangeException();
-                }
-            }
+                0 => _value0,
+                1 => _value1,
+                2 => _value2,
+                3 => _value3,
+                4 => _value4,
+                5 => _value5,
+                6 => _value6,
+                7 => _value7,
+                8 => _value8,
+                9 => _value9,
+                10 => _value10,
+                11 => _value11,
+                12 => _value12,
+                13 => _value13,
+                14 => _value14,
+                15 => _value15,
+                16 => _value16,
+                17 => _value17,
+                18 => _value18,
+                19 => _value19,
+                20 => _value20,
+                21 => _value21,
+                22 => _value22,
+                23 => _value23,
+                24 => _value24,
+                25 => _value25,
+                26 => _value26,
+                27 => _value27,
+                28 => _value28,
+                29 => _value29,
+                _ => throw new IndexOutOfRangeException(),
+            };
             set
             {
                 switch (index)
@@ -503,35 +440,35 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
         public Snapshot(
-            [CanBeNull] T0 value0,
-            [CanBeNull] T1 value1,
-            [CanBeNull] T2 value2,
-            [CanBeNull] T3 value3,
-            [CanBeNull] T4 value4,
-            [CanBeNull] T5 value5,
-            [CanBeNull] T6 value6,
-            [CanBeNull] T7 value7,
-            [CanBeNull] T8 value8,
-            [CanBeNull] T9 value9,
-            [CanBeNull] T10 value10,
-            [CanBeNull] T11 value11,
-            [CanBeNull] T12 value12,
-            [CanBeNull] T13 value13,
-            [CanBeNull] T14 value14,
-            [CanBeNull] T15 value15,
-            [CanBeNull] T16 value16,
-            [CanBeNull] T17 value17,
-            [CanBeNull] T18 value18,
-            [CanBeNull] T19 value19,
-            [CanBeNull] T20 value20,
-            [CanBeNull] T21 value21,
-            [CanBeNull] T22 value22,
-            [CanBeNull] T23 value23,
-            [CanBeNull] T24 value24,
-            [CanBeNull] T25 value25,
-            [CanBeNull] T26 value26,
-            [CanBeNull] T27 value27,
-            [CanBeNull] T28 value28)
+            [CanBeNull] T0? value0,
+            [CanBeNull] T1? value1,
+            [CanBeNull] T2? value2,
+            [CanBeNull] T3? value3,
+            [CanBeNull] T4? value4,
+            [CanBeNull] T5? value5,
+            [CanBeNull] T6? value6,
+            [CanBeNull] T7? value7,
+            [CanBeNull] T8? value8,
+            [CanBeNull] T9? value9,
+            [CanBeNull] T10? value10,
+            [CanBeNull] T11? value11,
+            [CanBeNull] T12? value12,
+            [CanBeNull] T13? value13,
+            [CanBeNull] T14? value14,
+            [CanBeNull] T15? value15,
+            [CanBeNull] T16? value16,
+            [CanBeNull] T17? value17,
+            [CanBeNull] T18? value18,
+            [CanBeNull] T19? value19,
+            [CanBeNull] T20? value20,
+            [CanBeNull] T21? value21,
+            [CanBeNull] T22? value22,
+            [CanBeNull] T23? value23,
+            [CanBeNull] T24? value24,
+            [CanBeNull] T25? value25,
+            [CanBeNull] T26? value26,
+            [CanBeNull] T27? value27,
+            [CanBeNull] T28? value28)
         {
             _value0 = value0;
             _value1 = value1;
@@ -564,35 +501,35 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
             _value28 = value28;
         }
 
-        private T0 _value0;
-        private T1 _value1;
-        private T2 _value2;
-        private T3 _value3;
-        private T4 _value4;
-        private T5 _value5;
-        private T6 _value6;
-        private T7 _value7;
-        private T8 _value8;
-        private T9 _value9;
-        private T10 _value10;
-        private T11 _value11;
-        private T12 _value12;
-        private T13 _value13;
-        private T14 _value14;
-        private T15 _value15;
-        private T16 _value16;
-        private T17 _value17;
-        private T18 _value18;
-        private T19 _value19;
-        private T20 _value20;
-        private T21 _value21;
-        private T22 _value22;
-        private T23 _value23;
-        private T24 _value24;
-        private T25 _value25;
-        private T26 _value26;
-        private T27 _value27;
-        private T28 _value28;
+        private T0? _value0;
+        private T1? _value1;
+        private T2? _value2;
+        private T3? _value3;
+        private T4? _value4;
+        private T5? _value5;
+        private T6? _value6;
+        private T7? _value7;
+        private T8? _value8;
+        private T9? _value9;
+        private T10? _value10;
+        private T11? _value11;
+        private T12? _value12;
+        private T13? _value13;
+        private T14? _value14;
+        private T15? _value15;
+        private T16? _value16;
+        private T17? _value17;
+        private T18? _value18;
+        private T19? _value19;
+        private T20? _value20;
+        private T21? _value21;
+        private T22? _value22;
+        private T23? _value23;
+        private T24? _value24;
+        private T25? _value25;
+        private T26? _value26;
+        private T27? _value27;
+        private T28? _value28;
 
         /// <summary>
         ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
@@ -610,74 +547,41 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     any release. You should only use it directly in your code with extreme caution and knowing that
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
-        public object this[int index]
+        public object? this[int index]
         {
-            get
+            get => index switch
             {
-                switch (index)
-                {
-                    case 0:
-                        return _value0;
-                    case 1:
-                        return _value1;
-                    case 2:
-                        return _value2;
-                    case 3:
-                        return _value3;
-                    case 4:
-                        return _value4;
-                    case 5:
-                        return _value5;
-                    case 6:
-                        return _value6;
-                    case 7:
-                        return _value7;
-                    case 8:
-                        return _value8;
-                    case 9:
-                        return _value9;
-                    case 10:
-                        return _value10;
-                    case 11:
-                        return _value11;
-                    case 12:
-                        return _value12;
-                    case 13:
-                        return _value13;
-                    case 14:
-                        return _value14;
-                    case 15:
-                        return _value15;
-                    case 16:
-                        return _value16;
-                    case 17:
-                        return _value17;
-                    case 18:
-                        return _value18;
-                    case 19:
-                        return _value19;
-                    case 20:
-                        return _value20;
-                    case 21:
-                        return _value21;
-                    case 22:
-                        return _value22;
-                    case 23:
-                        return _value23;
-                    case 24:
-                        return _value24;
-                    case 25:
-                        return _value25;
-                    case 26:
-                        return _value26;
-                    case 27:
-                        return _value27;
-                    case 28:
-                        return _value28;
-                    default:
-                        throw new IndexOutOfRangeException();
-                }
-            }
+                0 => _value0,
+                1 => _value1,
+                2 => _value2,
+                3 => _value3,
+                4 => _value4,
+                5 => _value5,
+                6 => _value6,
+                7 => _value7,
+                8 => _value8,
+                9 => _value9,
+                10 => _value10,
+                11 => _value11,
+                12 => _value12,
+                13 => _value13,
+                14 => _value14,
+                15 => _value15,
+                16 => _value16,
+                17 => _value17,
+                18 => _value18,
+                19 => _value19,
+                20 => _value20,
+                21 => _value21,
+                22 => _value22,
+                23 => _value23,
+                24 => _value24,
+                25 => _value25,
+                26 => _value26,
+                27 => _value27,
+                28 => _value28,
+                _ => throw new IndexOutOfRangeException(),
+            };
             set
             {
                 switch (index)
@@ -808,34 +712,34 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
         public Snapshot(
-            [CanBeNull] T0 value0,
-            [CanBeNull] T1 value1,
-            [CanBeNull] T2 value2,
-            [CanBeNull] T3 value3,
-            [CanBeNull] T4 value4,
-            [CanBeNull] T5 value5,
-            [CanBeNull] T6 value6,
-            [CanBeNull] T7 value7,
-            [CanBeNull] T8 value8,
-            [CanBeNull] T9 value9,
-            [CanBeNull] T10 value10,
-            [CanBeNull] T11 value11,
-            [CanBeNull] T12 value12,
-            [CanBeNull] T13 value13,
-            [CanBeNull] T14 value14,
-            [CanBeNull] T15 value15,
-            [CanBeNull] T16 value16,
-            [CanBeNull] T17 value17,
-            [CanBeNull] T18 value18,
-            [CanBeNull] T19 value19,
-            [CanBeNull] T20 value20,
-            [CanBeNull] T21 value21,
-            [CanBeNull] T22 value22,
-            [CanBeNull] T23 value23,
-            [CanBeNull] T24 value24,
-            [CanBeNull] T25 value25,
-            [CanBeNull] T26 value26,
-            [CanBeNull] T27 value27)
+            [CanBeNull] T0? value0,
+            [CanBeNull] T1? value1,
+            [CanBeNull] T2? value2,
+            [CanBeNull] T3? value3,
+            [CanBeNull] T4? value4,
+            [CanBeNull] T5? value5,
+            [CanBeNull] T6? value6,
+            [CanBeNull] T7? value7,
+            [CanBeNull] T8? value8,
+            [CanBeNull] T9? value9,
+            [CanBeNull] T10? value10,
+            [CanBeNull] T11? value11,
+            [CanBeNull] T12? value12,
+            [CanBeNull] T13? value13,
+            [CanBeNull] T14? value14,
+            [CanBeNull] T15? value15,
+            [CanBeNull] T16? value16,
+            [CanBeNull] T17? value17,
+            [CanBeNull] T18? value18,
+            [CanBeNull] T19? value19,
+            [CanBeNull] T20? value20,
+            [CanBeNull] T21? value21,
+            [CanBeNull] T22? value22,
+            [CanBeNull] T23? value23,
+            [CanBeNull] T24? value24,
+            [CanBeNull] T25? value25,
+            [CanBeNull] T26? value26,
+            [CanBeNull] T27? value27)
         {
             _value0 = value0;
             _value1 = value1;
@@ -867,34 +771,34 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
             _value27 = value27;
         }
 
-        private T0 _value0;
-        private T1 _value1;
-        private T2 _value2;
-        private T3 _value3;
-        private T4 _value4;
-        private T5 _value5;
-        private T6 _value6;
-        private T7 _value7;
-        private T8 _value8;
-        private T9 _value9;
-        private T10 _value10;
-        private T11 _value11;
-        private T12 _value12;
-        private T13 _value13;
-        private T14 _value14;
-        private T15 _value15;
-        private T16 _value16;
-        private T17 _value17;
-        private T18 _value18;
-        private T19 _value19;
-        private T20 _value20;
-        private T21 _value21;
-        private T22 _value22;
-        private T23 _value23;
-        private T24 _value24;
-        private T25 _value25;
-        private T26 _value26;
-        private T27 _value27;
+        private T0? _value0;
+        private T1? _value1;
+        private T2? _value2;
+        private T3? _value3;
+        private T4? _value4;
+        private T5? _value5;
+        private T6? _value6;
+        private T7? _value7;
+        private T8? _value8;
+        private T9? _value9;
+        private T10? _value10;
+        private T11? _value11;
+        private T12? _value12;
+        private T13? _value13;
+        private T14? _value14;
+        private T15? _value15;
+        private T16? _value16;
+        private T17? _value17;
+        private T18? _value18;
+        private T19? _value19;
+        private T20? _value20;
+        private T21? _value21;
+        private T22? _value22;
+        private T23? _value23;
+        private T24? _value24;
+        private T25? _value25;
+        private T26? _value26;
+        private T27? _value27;
 
         /// <summary>
         ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
@@ -912,72 +816,40 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     any release. You should only use it directly in your code with extreme caution and knowing that
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
-        public object this[int index]
+        public object? this[int index]
         {
-            get
+            get => index switch
             {
-                switch (index)
-                {
-                    case 0:
-                        return _value0;
-                    case 1:
-                        return _value1;
-                    case 2:
-                        return _value2;
-                    case 3:
-                        return _value3;
-                    case 4:
-                        return _value4;
-                    case 5:
-                        return _value5;
-                    case 6:
-                        return _value6;
-                    case 7:
-                        return _value7;
-                    case 8:
-                        return _value8;
-                    case 9:
-                        return _value9;
-                    case 10:
-                        return _value10;
-                    case 11:
-                        return _value11;
-                    case 12:
-                        return _value12;
-                    case 13:
-                        return _value13;
-                    case 14:
-                        return _value14;
-                    case 15:
-                        return _value15;
-                    case 16:
-                        return _value16;
-                    case 17:
-                        return _value17;
-                    case 18:
-                        return _value18;
-                    case 19:
-                        return _value19;
-                    case 20:
-                        return _value20;
-                    case 21:
-                        return _value21;
-                    case 22:
-                        return _value22;
-                    case 23:
-                        return _value23;
-                    case 24:
-                        return _value24;
-                    case 25:
-                        return _value25;
-                    case 26:
-                        return _value26;
-                    case 27:
-                        return _value27;
-                    default:
-                        throw new IndexOutOfRangeException();
-                }
-            }
+                0 => _value0,
+                1 => _value1,
+                2 => _value2,
+                3 => _value3,
+                4 => _value4,
+                5 => _value5,
+                6 => _value6,
+                7 => _value7,
+                8 => _value8,
+                9 => _value9,
+                10 => _value10,
+                11 => _value11,
+                12 => _value12,
+                13 => _value13,
+                14 => _value14,
+                15 => _value15,
+                16 => _value16,
+                17 => _value17,
+                18 => _value18,
+                19 => _value19,
+                20 => _value20,
+                21 => _value21,
+                22 => _value22,
+                23 => _value23,
+                24 => _value24,
+                25 => _value25,
+                26 => _value26,
+                27 => _value27,
+                _ => throw new IndexOutOfRangeException(),
+            };
             set
             {
                 switch (index)
@@ -1105,33 +977,33 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
         public Snapshot(
-            [CanBeNull] T0 value0,
-            [CanBeNull] T1 value1,
-            [CanBeNull] T2 value2,
-            [CanBeNull] T3 value3,
-            [CanBeNull] T4 value4,
-            [CanBeNull] T5 value5,
-            [CanBeNull] T6 value6,
-            [CanBeNull] T7 value7,
-            [CanBeNull] T8 value8,
-            [CanBeNull] T9 value9,
-            [CanBeNull] T10 value10,
-            [CanBeNull] T11 value11,
-            [CanBeNull] T12 value12,
-            [CanBeNull] T13 value13,
-            [CanBeNull] T14 value14,
-            [CanBeNull] T15 value15,
-            [CanBeNull] T16 value16,
-            [CanBeNull] T17 value17,
-            [CanBeNull] T18 value18,
-            [CanBeNull] T19 value19,
-            [CanBeNull] T20 value20,
-            [CanBeNull] T21 value21,
-            [CanBeNull] T22 value22,
-            [CanBeNull] T23 value23,
-            [CanBeNull] T24 value24,
-            [CanBeNull] T25 value25,
-            [CanBeNull] T26 value26)
+            [CanBeNull] T0? value0,
+            [CanBeNull] T1? value1,
+            [CanBeNull] T2? value2,
+            [CanBeNull] T3? value3,
+            [CanBeNull] T4? value4,
+            [CanBeNull] T5? value5,
+            [CanBeNull] T6? value6,
+            [CanBeNull] T7? value7,
+            [CanBeNull] T8? value8,
+            [CanBeNull] T9? value9,
+            [CanBeNull] T10? value10,
+            [CanBeNull] T11? value11,
+            [CanBeNull] T12? value12,
+            [CanBeNull] T13? value13,
+            [CanBeNull] T14? value14,
+            [CanBeNull] T15? value15,
+            [CanBeNull] T16? value16,
+            [CanBeNull] T17? value17,
+            [CanBeNull] T18? value18,
+            [CanBeNull] T19? value19,
+            [CanBeNull] T20? value20,
+            [CanBeNull] T21? value21,
+            [CanBeNull] T22? value22,
+            [CanBeNull] T23? value23,
+            [CanBeNull] T24? value24,
+            [CanBeNull] T25? value25,
+            [CanBeNull] T26? value26)
         {
             _value0 = value0;
             _value1 = value1;
@@ -1162,33 +1034,33 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
             _value26 = value26;
         }
 
-        private T0 _value0;
-        private T1 _value1;
-        private T2 _value2;
-        private T3 _value3;
-        private T4 _value4;
-        private T5 _value5;
-        private T6 _value6;
-        private T7 _value7;
-        private T8 _value8;
-        private T9 _value9;
-        private T10 _value10;
-        private T11 _value11;
-        private T12 _value12;
-        private T13 _value13;
-        private T14 _value14;
-        private T15 _value15;
-        private T16 _value16;
-        private T17 _value17;
-        private T18 _value18;
-        private T19 _value19;
-        private T20 _value20;
-        private T21 _value21;
-        private T22 _value22;
-        private T23 _value23;
-        private T24 _value24;
-        private T25 _value25;
-        private T26 _value26;
+        private T0? _value0;
+        private T1? _value1;
+        private T2? _value2;
+        private T3? _value3;
+        private T4? _value4;
+        private T5? _value5;
+        private T6? _value6;
+        private T7? _value7;
+        private T8? _value8;
+        private T9? _value9;
+        private T10? _value10;
+        private T11? _value11;
+        private T12? _value12;
+        private T13? _value13;
+        private T14? _value14;
+        private T15? _value15;
+        private T16? _value16;
+        private T17? _value17;
+        private T18? _value18;
+        private T19? _value19;
+        private T20? _value20;
+        private T21? _value21;
+        private T22? _value22;
+        private T23? _value23;
+        private T24? _value24;
+        private T25? _value25;
+        private T26? _value26;
 
         /// <summary>
         ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
@@ -1206,70 +1078,39 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     any release. You should only use it directly in your code with extreme caution and knowing that
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
-        public object this[int index]
+        public object? this[int index]
         {
-            get
+            get => index switch
             {
-                switch (index)
-                {
-                    case 0:
-                        return _value0;
-                    case 1:
-                        return _value1;
-                    case 2:
-                        return _value2;
-                    case 3:
-                        return _value3;
-                    case 4:
-                        return _value4;
-                    case 5:
-                        return _value5;
-                    case 6:
-                        return _value6;
-                    case 7:
-                        return _value7;
-                    case 8:
-                        return _value8;
-                    case 9:
-                        return _value9;
-                    case 10:
-                        return _value10;
-                    case 11:
-                        return _value11;
-                    case 12:
-                        return _value12;
-                    case 13:
-                        return _value13;
-                    case 14:
-                        return _value14;
-                    case 15:
-                        return _value15;
-                    case 16:
-                        return _value16;
-                    case 17:
-                        return _value17;
-                    case 18:
-                        return _value18;
-                    case 19:
-                        return _value19;
-                    case 20:
-                        return _value20;
-                    case 21:
-                        return _value21;
-                    case 22:
-                        return _value22;
-                    case 23:
-                        return _value23;
-                    case 24:
-                        return _value24;
-                    case 25:
-                        return _value25;
-                    case 26:
-                        return _value26;
-                    default:
-                        throw new IndexOutOfRangeException();
-                }
-            }
+                0 => _value0,
+                1 => _value1,
+                2 => _value2,
+                3 => _value3,
+                4 => _value4,
+                5 => _value5,
+                6 => _value6,
+                7 => _value7,
+                8 => _value8,
+                9 => _value9,
+                10 => _value10,
+                11 => _value11,
+                12 => _value12,
+                13 => _value13,
+                14 => _value14,
+                15 => _value15,
+                16 => _value16,
+                17 => _value17,
+                18 => _value18,
+                19 => _value19,
+                20 => _value20,
+                21 => _value21,
+                22 => _value22,
+                23 => _value23,
+                24 => _value24,
+                25 => _value25,
+                26 => _value26,
+                _ => throw new IndexOutOfRangeException(),
+            };
             set
             {
                 switch (index)
@@ -1394,32 +1235,32 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
         public Snapshot(
-            [CanBeNull] T0 value0,
-            [CanBeNull] T1 value1,
-            [CanBeNull] T2 value2,
-            [CanBeNull] T3 value3,
-            [CanBeNull] T4 value4,
-            [CanBeNull] T5 value5,
-            [CanBeNull] T6 value6,
-            [CanBeNull] T7 value7,
-            [CanBeNull] T8 value8,
-            [CanBeNull] T9 value9,
-            [CanBeNull] T10 value10,
-            [CanBeNull] T11 value11,
-            [CanBeNull] T12 value12,
-            [CanBeNull] T13 value13,
-            [CanBeNull] T14 value14,
-            [CanBeNull] T15 value15,
-            [CanBeNull] T16 value16,
-            [CanBeNull] T17 value17,
-            [CanBeNull] T18 value18,
-            [CanBeNull] T19 value19,
-            [CanBeNull] T20 value20,
-            [CanBeNull] T21 value21,
-            [CanBeNull] T22 value22,
-            [CanBeNull] T23 value23,
-            [CanBeNull] T24 value24,
-            [CanBeNull] T25 value25)
+            [CanBeNull] T0? value0,
+            [CanBeNull] T1? value1,
+            [CanBeNull] T2? value2,
+            [CanBeNull] T3? value3,
+            [CanBeNull] T4? value4,
+            [CanBeNull] T5? value5,
+            [CanBeNull] T6? value6,
+            [CanBeNull] T7? value7,
+            [CanBeNull] T8? value8,
+            [CanBeNull] T9? value9,
+            [CanBeNull] T10? value10,
+            [CanBeNull] T11? value11,
+            [CanBeNull] T12? value12,
+            [CanBeNull] T13? value13,
+            [CanBeNull] T14? value14,
+            [CanBeNull] T15? value15,
+            [CanBeNull] T16? value16,
+            [CanBeNull] T17? value17,
+            [CanBeNull] T18? value18,
+            [CanBeNull] T19? value19,
+            [CanBeNull] T20? value20,
+            [CanBeNull] T21? value21,
+            [CanBeNull] T22? value22,
+            [CanBeNull] T23? value23,
+            [CanBeNull] T24? value24,
+            [CanBeNull] T25? value25)
         {
             _value0 = value0;
             _value1 = value1;
@@ -1449,32 +1290,32 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
             _value25 = value25;
         }
 
-        private T0 _value0;
-        private T1 _value1;
-        private T2 _value2;
-        private T3 _value3;
-        private T4 _value4;
-        private T5 _value5;
-        private T6 _value6;
-        private T7 _value7;
-        private T8 _value8;
-        private T9 _value9;
-        private T10 _value10;
-        private T11 _value11;
-        private T12 _value12;
-        private T13 _value13;
-        private T14 _value14;
-        private T15 _value15;
-        private T16 _value16;
-        private T17 _value17;
-        private T18 _value18;
-        private T19 _value19;
-        private T20 _value20;
-        private T21 _value21;
-        private T22 _value22;
-        private T23 _value23;
-        private T24 _value24;
-        private T25 _value25;
+        private T0? _value0;
+        private T1? _value1;
+        private T2? _value2;
+        private T3? _value3;
+        private T4? _value4;
+        private T5? _value5;
+        private T6? _value6;
+        private T7? _value7;
+        private T8? _value8;
+        private T9? _value9;
+        private T10? _value10;
+        private T11? _value11;
+        private T12? _value12;
+        private T13? _value13;
+        private T14? _value14;
+        private T15? _value15;
+        private T16? _value16;
+        private T17? _value17;
+        private T18? _value18;
+        private T19? _value19;
+        private T20? _value20;
+        private T21? _value21;
+        private T22? _value22;
+        private T23? _value23;
+        private T24? _value24;
+        private T25? _value25;
 
         /// <summary>
         ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
@@ -1492,68 +1333,38 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     any release. You should only use it directly in your code with extreme caution and knowing that
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
-        public object this[int index]
+        public object? this[int index]
         {
-            get
+            get => index switch
             {
-                switch (index)
-                {
-                    case 0:
-                        return _value0;
-                    case 1:
-                        return _value1;
-                    case 2:
-                        return _value2;
-                    case 3:
-                        return _value3;
-                    case 4:
-                        return _value4;
-                    case 5:
-                        return _value5;
-                    case 6:
-                        return _value6;
-                    case 7:
-                        return _value7;
-                    case 8:
-                        return _value8;
-                    case 9:
-                        return _value9;
-                    case 10:
-                        return _value10;
-                    case 11:
-                        return _value11;
-                    case 12:
-                        return _value12;
-                    case 13:
-                        return _value13;
-                    case 14:
-                        return _value14;
-                    case 15:
-                        return _value15;
-                    case 16:
-                        return _value16;
-                    case 17:
-                        return _value17;
-                    case 18:
-                        return _value18;
-                    case 19:
-                        return _value19;
-                    case 20:
-                        return _value20;
-                    case 21:
-                        return _value21;
-                    case 22:
-                        return _value22;
-                    case 23:
-                        return _value23;
-                    case 24:
-                        return _value24;
-                    case 25:
-                        return _value25;
-                    default:
-                        throw new IndexOutOfRangeException();
-                }
-            }
+                0 => _value0,
+                1 => _value1,
+                2 => _value2,
+                3 => _value3,
+                4 => _value4,
+                5 => _value5,
+                6 => _value6,
+                7 => _value7,
+                8 => _value8,
+                9 => _value9,
+                10 => _value10,
+                11 => _value11,
+                12 => _value12,
+                13 => _value13,
+                14 => _value14,
+                15 => _value15,
+                16 => _value16,
+                17 => _value17,
+                18 => _value18,
+                19 => _value19,
+                20 => _value20,
+                21 => _value21,
+                22 => _value22,
+                23 => _value23,
+                24 => _value24,
+                25 => _value25,
+                _ => throw new IndexOutOfRangeException(),
+            };
             set
             {
                 switch (index)
@@ -1675,31 +1486,31 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
         public Snapshot(
-            [CanBeNull] T0 value0,
-            [CanBeNull] T1 value1,
-            [CanBeNull] T2 value2,
-            [CanBeNull] T3 value3,
-            [CanBeNull] T4 value4,
-            [CanBeNull] T5 value5,
-            [CanBeNull] T6 value6,
-            [CanBeNull] T7 value7,
-            [CanBeNull] T8 value8,
-            [CanBeNull] T9 value9,
-            [CanBeNull] T10 value10,
-            [CanBeNull] T11 value11,
-            [CanBeNull] T12 value12,
-            [CanBeNull] T13 value13,
-            [CanBeNull] T14 value14,
-            [CanBeNull] T15 value15,
-            [CanBeNull] T16 value16,
-            [CanBeNull] T17 value17,
-            [CanBeNull] T18 value18,
-            [CanBeNull] T19 value19,
-            [CanBeNull] T20 value20,
-            [CanBeNull] T21 value21,
-            [CanBeNull] T22 value22,
-            [CanBeNull] T23 value23,
-            [CanBeNull] T24 value24)
+            [CanBeNull] T0? value0,
+            [CanBeNull] T1? value1,
+            [CanBeNull] T2? value2,
+            [CanBeNull] T3? value3,
+            [CanBeNull] T4? value4,
+            [CanBeNull] T5? value5,
+            [CanBeNull] T6? value6,
+            [CanBeNull] T7? value7,
+            [CanBeNull] T8? value8,
+            [CanBeNull] T9? value9,
+            [CanBeNull] T10? value10,
+            [CanBeNull] T11? value11,
+            [CanBeNull] T12? value12,
+            [CanBeNull] T13? value13,
+            [CanBeNull] T14? value14,
+            [CanBeNull] T15? value15,
+            [CanBeNull] T16? value16,
+            [CanBeNull] T17? value17,
+            [CanBeNull] T18? value18,
+            [CanBeNull] T19? value19,
+            [CanBeNull] T20? value20,
+            [CanBeNull] T21? value21,
+            [CanBeNull] T22? value22,
+            [CanBeNull] T23? value23,
+            [CanBeNull] T24? value24)
         {
             _value0 = value0;
             _value1 = value1;
@@ -1728,31 +1539,31 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
             _value24 = value24;
         }
 
-        private T0 _value0;
-        private T1 _value1;
-        private T2 _value2;
-        private T3 _value3;
-        private T4 _value4;
-        private T5 _value5;
-        private T6 _value6;
-        private T7 _value7;
-        private T8 _value8;
-        private T9 _value9;
-        private T10 _value10;
-        private T11 _value11;
-        private T12 _value12;
-        private T13 _value13;
-        private T14 _value14;
-        private T15 _value15;
-        private T16 _value16;
-        private T17 _value17;
-        private T18 _value18;
-        private T19 _value19;
-        private T20 _value20;
-        private T21 _value21;
-        private T22 _value22;
-        private T23 _value23;
-        private T24 _value24;
+        private T0? _value0;
+        private T1? _value1;
+        private T2? _value2;
+        private T3? _value3;
+        private T4? _value4;
+        private T5? _value5;
+        private T6? _value6;
+        private T7? _value7;
+        private T8? _value8;
+        private T9? _value9;
+        private T10? _value10;
+        private T11? _value11;
+        private T12? _value12;
+        private T13? _value13;
+        private T14? _value14;
+        private T15? _value15;
+        private T16? _value16;
+        private T17? _value17;
+        private T18? _value18;
+        private T19? _value19;
+        private T20? _value20;
+        private T21? _value21;
+        private T22? _value22;
+        private T23? _value23;
+        private T24? _value24;
 
         /// <summary>
         ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
@@ -1770,66 +1581,37 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     any release. You should only use it directly in your code with extreme caution and knowing that
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
-        public object this[int index]
+        public object? this[int index]
         {
-            get
+            get => index switch
             {
-                switch (index)
-                {
-                    case 0:
-                        return _value0;
-                    case 1:
-                        return _value1;
-                    case 2:
-                        return _value2;
-                    case 3:
-                        return _value3;
-                    case 4:
-                        return _value4;
-                    case 5:
-                        return _value5;
-                    case 6:
-                        return _value6;
-                    case 7:
-                        return _value7;
-                    case 8:
-                        return _value8;
-                    case 9:
-                        return _value9;
-                    case 10:
-                        return _value10;
-                    case 11:
-                        return _value11;
-                    case 12:
-                        return _value12;
-                    case 13:
-                        return _value13;
-                    case 14:
-                        return _value14;
-                    case 15:
-                        return _value15;
-                    case 16:
-                        return _value16;
-                    case 17:
-                        return _value17;
-                    case 18:
-                        return _value18;
-                    case 19:
-                        return _value19;
-                    case 20:
-                        return _value20;
-                    case 21:
-                        return _value21;
-                    case 22:
-                        return _value22;
-                    case 23:
-                        return _value23;
-                    case 24:
-                        return _value24;
-                    default:
-                        throw new IndexOutOfRangeException();
-                }
-            }
+                0 => _value0,
+                1 => _value1,
+                2 => _value2,
+                3 => _value3,
+                4 => _value4,
+                5 => _value5,
+                6 => _value6,
+                7 => _value7,
+                8 => _value8,
+                9 => _value9,
+                10 => _value10,
+                11 => _value11,
+                12 => _value12,
+                13 => _value13,
+                14 => _value14,
+                15 => _value15,
+                16 => _value16,
+                17 => _value17,
+                18 => _value18,
+                19 => _value19,
+                20 => _value20,
+                21 => _value21,
+                22 => _value22,
+                23 => _value23,
+                24 => _value24,
+                _ => throw new IndexOutOfRangeException(),
+            };
             set
             {
                 switch (index)
@@ -1948,30 +1730,30 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
         public Snapshot(
-            [CanBeNull] T0 value0,
-            [CanBeNull] T1 value1,
-            [CanBeNull] T2 value2,
-            [CanBeNull] T3 value3,
-            [CanBeNull] T4 value4,
-            [CanBeNull] T5 value5,
-            [CanBeNull] T6 value6,
-            [CanBeNull] T7 value7,
-            [CanBeNull] T8 value8,
-            [CanBeNull] T9 value9,
-            [CanBeNull] T10 value10,
-            [CanBeNull] T11 value11,
-            [CanBeNull] T12 value12,
-            [CanBeNull] T13 value13,
-            [CanBeNull] T14 value14,
-            [CanBeNull] T15 value15,
-            [CanBeNull] T16 value16,
-            [CanBeNull] T17 value17,
-            [CanBeNull] T18 value18,
-            [CanBeNull] T19 value19,
-            [CanBeNull] T20 value20,
-            [CanBeNull] T21 value21,
-            [CanBeNull] T22 value22,
-            [CanBeNull] T23 value23)
+            [CanBeNull] T0? value0,
+            [CanBeNull] T1? value1,
+            [CanBeNull] T2? value2,
+            [CanBeNull] T3? value3,
+            [CanBeNull] T4? value4,
+            [CanBeNull] T5? value5,
+            [CanBeNull] T6? value6,
+            [CanBeNull] T7? value7,
+            [CanBeNull] T8? value8,
+            [CanBeNull] T9? value9,
+            [CanBeNull] T10? value10,
+            [CanBeNull] T11? value11,
+            [CanBeNull] T12? value12,
+            [CanBeNull] T13? value13,
+            [CanBeNull] T14? value14,
+            [CanBeNull] T15? value15,
+            [CanBeNull] T16? value16,
+            [CanBeNull] T17? value17,
+            [CanBeNull] T18? value18,
+            [CanBeNull] T19? value19,
+            [CanBeNull] T20? value20,
+            [CanBeNull] T21? value21,
+            [CanBeNull] T22? value22,
+            [CanBeNull] T23? value23)
         {
             _value0 = value0;
             _value1 = value1;
@@ -1999,30 +1781,30 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
             _value23 = value23;
         }
 
-        private T0 _value0;
-        private T1 _value1;
-        private T2 _value2;
-        private T3 _value3;
-        private T4 _value4;
-        private T5 _value5;
-        private T6 _value6;
-        private T7 _value7;
-        private T8 _value8;
-        private T9 _value9;
-        private T10 _value10;
-        private T11 _value11;
-        private T12 _value12;
-        private T13 _value13;
-        private T14 _value14;
-        private T15 _value15;
-        private T16 _value16;
-        private T17 _value17;
-        private T18 _value18;
-        private T19 _value19;
-        private T20 _value20;
-        private T21 _value21;
-        private T22 _value22;
-        private T23 _value23;
+        private T0? _value0;
+        private T1? _value1;
+        private T2? _value2;
+        private T3? _value3;
+        private T4? _value4;
+        private T5? _value5;
+        private T6? _value6;
+        private T7? _value7;
+        private T8? _value8;
+        private T9? _value9;
+        private T10? _value10;
+        private T11? _value11;
+        private T12? _value12;
+        private T13? _value13;
+        private T14? _value14;
+        private T15? _value15;
+        private T16? _value16;
+        private T17? _value17;
+        private T18? _value18;
+        private T19? _value19;
+        private T20? _value20;
+        private T21? _value21;
+        private T22? _value22;
+        private T23? _value23;
 
         /// <summary>
         ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
@@ -2040,64 +1822,36 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     any release. You should only use it directly in your code with extreme caution and knowing that
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
-        public object this[int index]
+        public object? this[int index]
         {
-            get
+            get => index switch
             {
-                switch (index)
-                {
-                    case 0:
-                        return _value0;
-                    case 1:
-                        return _value1;
-                    case 2:
-                        return _value2;
-                    case 3:
-                        return _value3;
-                    case 4:
-                        return _value4;
-                    case 5:
-                        return _value5;
-                    case 6:
-                        return _value6;
-                    case 7:
-                        return _value7;
-                    case 8:
-                        return _value8;
-                    case 9:
-                        return _value9;
-                    case 10:
-                        return _value10;
-                    case 11:
-                        return _value11;
-                    case 12:
-                        return _value12;
-                    case 13:
-                        return _value13;
-                    case 14:
-                        return _value14;
-                    case 15:
-                        return _value15;
-                    case 16:
-                        return _value16;
-                    case 17:
-                        return _value17;
-                    case 18:
-                        return _value18;
-                    case 19:
-                        return _value19;
-                    case 20:
-                        return _value20;
-                    case 21:
-                        return _value21;
-                    case 22:
-                        return _value22;
-                    case 23:
-                        return _value23;
-                    default:
-                        throw new IndexOutOfRangeException();
-                }
-            }
+                0 => _value0,
+                1 => _value1,
+                2 => _value2,
+                3 => _value3,
+                4 => _value4,
+                5 => _value5,
+                6 => _value6,
+                7 => _value7,
+                8 => _value8,
+                9 => _value9,
+                10 => _value10,
+                11 => _value11,
+                12 => _value12,
+                13 => _value13,
+                14 => _value14,
+                15 => _value15,
+                16 => _value16,
+                17 => _value17,
+                18 => _value18,
+                19 => _value19,
+                20 => _value20,
+                21 => _value21,
+                22 => _value22,
+                23 => _value23,
+                _ => throw new IndexOutOfRangeException(),
+            };
             set
             {
                 switch (index)
@@ -2212,29 +1966,29 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
         public Snapshot(
-            [CanBeNull] T0 value0,
-            [CanBeNull] T1 value1,
-            [CanBeNull] T2 value2,
-            [CanBeNull] T3 value3,
-            [CanBeNull] T4 value4,
-            [CanBeNull] T5 value5,
-            [CanBeNull] T6 value6,
-            [CanBeNull] T7 value7,
-            [CanBeNull] T8 value8,
-            [CanBeNull] T9 value9,
-            [CanBeNull] T10 value10,
-            [CanBeNull] T11 value11,
-            [CanBeNull] T12 value12,
-            [CanBeNull] T13 value13,
-            [CanBeNull] T14 value14,
-            [CanBeNull] T15 value15,
-            [CanBeNull] T16 value16,
-            [CanBeNull] T17 value17,
-            [CanBeNull] T18 value18,
-            [CanBeNull] T19 value19,
-            [CanBeNull] T20 value20,
-            [CanBeNull] T21 value21,
-            [CanBeNull] T22 value22)
+            [CanBeNull] T0? value0,
+            [CanBeNull] T1? value1,
+            [CanBeNull] T2? value2,
+            [CanBeNull] T3? value3,
+            [CanBeNull] T4? value4,
+            [CanBeNull] T5? value5,
+            [CanBeNull] T6? value6,
+            [CanBeNull] T7? value7,
+            [CanBeNull] T8? value8,
+            [CanBeNull] T9? value9,
+            [CanBeNull] T10? value10,
+            [CanBeNull] T11? value11,
+            [CanBeNull] T12? value12,
+            [CanBeNull] T13? value13,
+            [CanBeNull] T14? value14,
+            [CanBeNull] T15? value15,
+            [CanBeNull] T16? value16,
+            [CanBeNull] T17? value17,
+            [CanBeNull] T18? value18,
+            [CanBeNull] T19? value19,
+            [CanBeNull] T20? value20,
+            [CanBeNull] T21? value21,
+            [CanBeNull] T22? value22)
         {
             _value0 = value0;
             _value1 = value1;
@@ -2261,29 +2015,29 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
             _value22 = value22;
         }
 
-        private T0 _value0;
-        private T1 _value1;
-        private T2 _value2;
-        private T3 _value3;
-        private T4 _value4;
-        private T5 _value5;
-        private T6 _value6;
-        private T7 _value7;
-        private T8 _value8;
-        private T9 _value9;
-        private T10 _value10;
-        private T11 _value11;
-        private T12 _value12;
-        private T13 _value13;
-        private T14 _value14;
-        private T15 _value15;
-        private T16 _value16;
-        private T17 _value17;
-        private T18 _value18;
-        private T19 _value19;
-        private T20 _value20;
-        private T21 _value21;
-        private T22 _value22;
+        private T0? _value0;
+        private T1? _value1;
+        private T2? _value2;
+        private T3? _value3;
+        private T4? _value4;
+        private T5? _value5;
+        private T6? _value6;
+        private T7? _value7;
+        private T8? _value8;
+        private T9? _value9;
+        private T10? _value10;
+        private T11? _value11;
+        private T12? _value12;
+        private T13? _value13;
+        private T14? _value14;
+        private T15? _value15;
+        private T16? _value16;
+        private T17? _value17;
+        private T18? _value18;
+        private T19? _value19;
+        private T20? _value20;
+        private T21? _value21;
+        private T22? _value22;
 
         /// <summary>
         ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
@@ -2301,62 +2055,35 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     any release. You should only use it directly in your code with extreme caution and knowing that
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
-        public object this[int index]
+        public object? this[int index]
         {
-            get
+            get => index switch
             {
-                switch (index)
-                {
-                    case 0:
-                        return _value0;
-                    case 1:
-                        return _value1;
-                    case 2:
-                        return _value2;
-                    case 3:
-                        return _value3;
-                    case 4:
-                        return _value4;
-                    case 5:
-                        return _value5;
-                    case 6:
-                        return _value6;
-                    case 7:
-                        return _value7;
-                    case 8:
-                        return _value8;
-                    case 9:
-                        return _value9;
-                    case 10:
-                        return _value10;
-                    case 11:
-                        return _value11;
-                    case 12:
-                        return _value12;
-                    case 13:
-                        return _value13;
-                    case 14:
-                        return _value14;
-                    case 15:
-                        return _value15;
-                    case 16:
-                        return _value16;
-                    case 17:
-                        return _value17;
-                    case 18:
-                        return _value18;
-                    case 19:
-                        return _value19;
-                    case 20:
-                        return _value20;
-                    case 21:
-                        return _value21;
-                    case 22:
-                        return _value22;
-                    default:
-                        throw new IndexOutOfRangeException();
-                }
-            }
+                0 => _value0,
+                1 => _value1,
+                2 => _value2,
+                3 => _value3,
+                4 => _value4,
+                5 => _value5,
+                6 => _value6,
+                7 => _value7,
+                8 => _value8,
+                9 => _value9,
+                10 => _value10,
+                11 => _value11,
+                12 => _value12,
+                13 => _value13,
+                14 => _value14,
+                15 => _value15,
+                16 => _value16,
+                17 => _value17,
+                18 => _value18,
+                19 => _value19,
+                20 => _value20,
+                21 => _value21,
+                22 => _value22,
+                _ => throw new IndexOutOfRangeException(),
+            };
             set
             {
                 switch (index)
@@ -2468,28 +2195,28 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
         public Snapshot(
-            [CanBeNull] T0 value0,
-            [CanBeNull] T1 value1,
-            [CanBeNull] T2 value2,
-            [CanBeNull] T3 value3,
-            [CanBeNull] T4 value4,
-            [CanBeNull] T5 value5,
-            [CanBeNull] T6 value6,
-            [CanBeNull] T7 value7,
-            [CanBeNull] T8 value8,
-            [CanBeNull] T9 value9,
-            [CanBeNull] T10 value10,
-            [CanBeNull] T11 value11,
-            [CanBeNull] T12 value12,
-            [CanBeNull] T13 value13,
-            [CanBeNull] T14 value14,
-            [CanBeNull] T15 value15,
-            [CanBeNull] T16 value16,
-            [CanBeNull] T17 value17,
-            [CanBeNull] T18 value18,
-            [CanBeNull] T19 value19,
-            [CanBeNull] T20 value20,
-            [CanBeNull] T21 value21)
+            [CanBeNull] T0? value0,
+            [CanBeNull] T1? value1,
+            [CanBeNull] T2? value2,
+            [CanBeNull] T3? value3,
+            [CanBeNull] T4? value4,
+            [CanBeNull] T5? value5,
+            [CanBeNull] T6? value6,
+            [CanBeNull] T7? value7,
+            [CanBeNull] T8? value8,
+            [CanBeNull] T9? value9,
+            [CanBeNull] T10? value10,
+            [CanBeNull] T11? value11,
+            [CanBeNull] T12? value12,
+            [CanBeNull] T13? value13,
+            [CanBeNull] T14? value14,
+            [CanBeNull] T15? value15,
+            [CanBeNull] T16? value16,
+            [CanBeNull] T17? value17,
+            [CanBeNull] T18? value18,
+            [CanBeNull] T19? value19,
+            [CanBeNull] T20? value20,
+            [CanBeNull] T21? value21)
         {
             _value0 = value0;
             _value1 = value1;
@@ -2515,28 +2242,28 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
             _value21 = value21;
         }
 
-        private T0 _value0;
-        private T1 _value1;
-        private T2 _value2;
-        private T3 _value3;
-        private T4 _value4;
-        private T5 _value5;
-        private T6 _value6;
-        private T7 _value7;
-        private T8 _value8;
-        private T9 _value9;
-        private T10 _value10;
-        private T11 _value11;
-        private T12 _value12;
-        private T13 _value13;
-        private T14 _value14;
-        private T15 _value15;
-        private T16 _value16;
-        private T17 _value17;
-        private T18 _value18;
-        private T19 _value19;
-        private T20 _value20;
-        private T21 _value21;
+        private T0? _value0;
+        private T1? _value1;
+        private T2? _value2;
+        private T3? _value3;
+        private T4? _value4;
+        private T5? _value5;
+        private T6? _value6;
+        private T7? _value7;
+        private T8? _value8;
+        private T9? _value9;
+        private T10? _value10;
+        private T11? _value11;
+        private T12? _value12;
+        private T13? _value13;
+        private T14? _value14;
+        private T15? _value15;
+        private T16? _value16;
+        private T17? _value17;
+        private T18? _value18;
+        private T19? _value19;
+        private T20? _value20;
+        private T21? _value21;
 
         /// <summary>
         ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
@@ -2554,60 +2281,34 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     any release. You should only use it directly in your code with extreme caution and knowing that
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
-        public object this[int index]
+        public object? this[int index]
         {
-            get
+            get => index switch
             {
-                switch (index)
-                {
-                    case 0:
-                        return _value0;
-                    case 1:
-                        return _value1;
-                    case 2:
-                        return _value2;
-                    case 3:
-                        return _value3;
-                    case 4:
-                        return _value4;
-                    case 5:
-                        return _value5;
-                    case 6:
-                        return _value6;
-                    case 7:
-                        return _value7;
-                    case 8:
-                        return _value8;
-                    case 9:
-                        return _value9;
-                    case 10:
-                        return _value10;
-                    case 11:
-                        return _value11;
-                    case 12:
-                        return _value12;
-                    case 13:
-                        return _value13;
-                    case 14:
-                        return _value14;
-                    case 15:
-                        return _value15;
-                    case 16:
-                        return _value16;
-                    case 17:
-                        return _value17;
-                    case 18:
-                        return _value18;
-                    case 19:
-                        return _value19;
-                    case 20:
-                        return _value20;
-                    case 21:
-                        return _value21;
-                    default:
-                        throw new IndexOutOfRangeException();
-                }
-            }
+                0 => _value0,
+                1 => _value1,
+                2 => _value2,
+                3 => _value3,
+                4 => _value4,
+                5 => _value5,
+                6 => _value6,
+                7 => _value7,
+                8 => _value8,
+                9 => _value9,
+                10 => _value10,
+                11 => _value11,
+                12 => _value12,
+                13 => _value13,
+                14 => _value14,
+                15 => _value15,
+                16 => _value16,
+                17 => _value17,
+                18 => _value18,
+                19 => _value19,
+                20 => _value20,
+                21 => _value21,
+                _ => throw new IndexOutOfRangeException(),
+            };
             set
             {
                 switch (index)
@@ -2715,27 +2416,27 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
         public Snapshot(
-            [CanBeNull] T0 value0,
-            [CanBeNull] T1 value1,
-            [CanBeNull] T2 value2,
-            [CanBeNull] T3 value3,
-            [CanBeNull] T4 value4,
-            [CanBeNull] T5 value5,
-            [CanBeNull] T6 value6,
-            [CanBeNull] T7 value7,
-            [CanBeNull] T8 value8,
-            [CanBeNull] T9 value9,
-            [CanBeNull] T10 value10,
-            [CanBeNull] T11 value11,
-            [CanBeNull] T12 value12,
-            [CanBeNull] T13 value13,
-            [CanBeNull] T14 value14,
-            [CanBeNull] T15 value15,
-            [CanBeNull] T16 value16,
-            [CanBeNull] T17 value17,
-            [CanBeNull] T18 value18,
-            [CanBeNull] T19 value19,
-            [CanBeNull] T20 value20)
+            [CanBeNull] T0? value0,
+            [CanBeNull] T1? value1,
+            [CanBeNull] T2? value2,
+            [CanBeNull] T3? value3,
+            [CanBeNull] T4? value4,
+            [CanBeNull] T5? value5,
+            [CanBeNull] T6? value6,
+            [CanBeNull] T7? value7,
+            [CanBeNull] T8? value8,
+            [CanBeNull] T9? value9,
+            [CanBeNull] T10? value10,
+            [CanBeNull] T11? value11,
+            [CanBeNull] T12? value12,
+            [CanBeNull] T13? value13,
+            [CanBeNull] T14? value14,
+            [CanBeNull] T15? value15,
+            [CanBeNull] T16? value16,
+            [CanBeNull] T17? value17,
+            [CanBeNull] T18? value18,
+            [CanBeNull] T19? value19,
+            [CanBeNull] T20? value20)
         {
             _value0 = value0;
             _value1 = value1;
@@ -2760,27 +2461,27 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
             _value20 = value20;
         }
 
-        private T0 _value0;
-        private T1 _value1;
-        private T2 _value2;
-        private T3 _value3;
-        private T4 _value4;
-        private T5 _value5;
-        private T6 _value6;
-        private T7 _value7;
-        private T8 _value8;
-        private T9 _value9;
-        private T10 _value10;
-        private T11 _value11;
-        private T12 _value12;
-        private T13 _value13;
-        private T14 _value14;
-        private T15 _value15;
-        private T16 _value16;
-        private T17 _value17;
-        private T18 _value18;
-        private T19 _value19;
-        private T20 _value20;
+        private T0? _value0;
+        private T1? _value1;
+        private T2? _value2;
+        private T3? _value3;
+        private T4? _value4;
+        private T5? _value5;
+        private T6? _value6;
+        private T7? _value7;
+        private T8? _value8;
+        private T9? _value9;
+        private T10? _value10;
+        private T11? _value11;
+        private T12? _value12;
+        private T13? _value13;
+        private T14? _value14;
+        private T15? _value15;
+        private T16? _value16;
+        private T17? _value17;
+        private T18? _value18;
+        private T19? _value19;
+        private T20? _value20;
 
         /// <summary>
         ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
@@ -2798,58 +2499,33 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     any release. You should only use it directly in your code with extreme caution and knowing that
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
-        public object this[int index]
+        public object? this[int index]
         {
-            get
+            get => index switch
             {
-                switch (index)
-                {
-                    case 0:
-                        return _value0;
-                    case 1:
-                        return _value1;
-                    case 2:
-                        return _value2;
-                    case 3:
-                        return _value3;
-                    case 4:
-                        return _value4;
-                    case 5:
-                        return _value5;
-                    case 6:
-                        return _value6;
-                    case 7:
-                        return _value7;
-                    case 8:
-                        return _value8;
-                    case 9:
-                        return _value9;
-                    case 10:
-                        return _value10;
-                    case 11:
-                        return _value11;
-                    case 12:
-                        return _value12;
-                    case 13:
-                        return _value13;
-                    case 14:
-                        return _value14;
-                    case 15:
-                        return _value15;
-                    case 16:
-                        return _value16;
-                    case 17:
-                        return _value17;
-                    case 18:
-                        return _value18;
-                    case 19:
-                        return _value19;
-                    case 20:
-                        return _value20;
-                    default:
-                        throw new IndexOutOfRangeException();
-                }
-            }
+                0 => _value0,
+                1 => _value1,
+                2 => _value2,
+                3 => _value3,
+                4 => _value4,
+                5 => _value5,
+                6 => _value6,
+                7 => _value7,
+                8 => _value8,
+                9 => _value9,
+                10 => _value10,
+                11 => _value11,
+                12 => _value12,
+                13 => _value13,
+                14 => _value14,
+                15 => _value15,
+                16 => _value16,
+                17 => _value17,
+                18 => _value18,
+                19 => _value19,
+                20 => _value20,
+                _ => throw new IndexOutOfRangeException(),
+            };
             set
             {
                 switch (index)
@@ -2953,26 +2629,26 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
         public Snapshot(
-            [CanBeNull] T0 value0,
-            [CanBeNull] T1 value1,
-            [CanBeNull] T2 value2,
-            [CanBeNull] T3 value3,
-            [CanBeNull] T4 value4,
-            [CanBeNull] T5 value5,
-            [CanBeNull] T6 value6,
-            [CanBeNull] T7 value7,
-            [CanBeNull] T8 value8,
-            [CanBeNull] T9 value9,
-            [CanBeNull] T10 value10,
-            [CanBeNull] T11 value11,
-            [CanBeNull] T12 value12,
-            [CanBeNull] T13 value13,
-            [CanBeNull] T14 value14,
-            [CanBeNull] T15 value15,
-            [CanBeNull] T16 value16,
-            [CanBeNull] T17 value17,
-            [CanBeNull] T18 value18,
-            [CanBeNull] T19 value19)
+            [CanBeNull] T0? value0,
+            [CanBeNull] T1? value1,
+            [CanBeNull] T2? value2,
+            [CanBeNull] T3? value3,
+            [CanBeNull] T4? value4,
+            [CanBeNull] T5? value5,
+            [CanBeNull] T6? value6,
+            [CanBeNull] T7? value7,
+            [CanBeNull] T8? value8,
+            [CanBeNull] T9? value9,
+            [CanBeNull] T10? value10,
+            [CanBeNull] T11? value11,
+            [CanBeNull] T12? value12,
+            [CanBeNull] T13? value13,
+            [CanBeNull] T14? value14,
+            [CanBeNull] T15? value15,
+            [CanBeNull] T16? value16,
+            [CanBeNull] T17? value17,
+            [CanBeNull] T18? value18,
+            [CanBeNull] T19? value19)
         {
             _value0 = value0;
             _value1 = value1;
@@ -2996,26 +2672,26 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
             _value19 = value19;
         }
 
-        private T0 _value0;
-        private T1 _value1;
-        private T2 _value2;
-        private T3 _value3;
-        private T4 _value4;
-        private T5 _value5;
-        private T6 _value6;
-        private T7 _value7;
-        private T8 _value8;
-        private T9 _value9;
-        private T10 _value10;
-        private T11 _value11;
-        private T12 _value12;
-        private T13 _value13;
-        private T14 _value14;
-        private T15 _value15;
-        private T16 _value16;
-        private T17 _value17;
-        private T18 _value18;
-        private T19 _value19;
+        private T0? _value0;
+        private T1? _value1;
+        private T2? _value2;
+        private T3? _value3;
+        private T4? _value4;
+        private T5? _value5;
+        private T6? _value6;
+        private T7? _value7;
+        private T8? _value8;
+        private T9? _value9;
+        private T10? _value10;
+        private T11? _value11;
+        private T12? _value12;
+        private T13? _value13;
+        private T14? _value14;
+        private T15? _value15;
+        private T16? _value16;
+        private T17? _value17;
+        private T18? _value18;
+        private T19? _value19;
 
         /// <summary>
         ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
@@ -3033,56 +2709,32 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     any release. You should only use it directly in your code with extreme caution and knowing that
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
-        public object this[int index]
+        public object? this[int index]
         {
-            get
+            get => index switch
             {
-                switch (index)
-                {
-                    case 0:
-                        return _value0;
-                    case 1:
-                        return _value1;
-                    case 2:
-                        return _value2;
-                    case 3:
-                        return _value3;
-                    case 4:
-                        return _value4;
-                    case 5:
-                        return _value5;
-                    case 6:
-                        return _value6;
-                    case 7:
-                        return _value7;
-                    case 8:
-                        return _value8;
-                    case 9:
-                        return _value9;
-                    case 10:
-                        return _value10;
-                    case 11:
-                        return _value11;
-                    case 12:
-                        return _value12;
-                    case 13:
-                        return _value13;
-                    case 14:
-                        return _value14;
-                    case 15:
-                        return _value15;
-                    case 16:
-                        return _value16;
-                    case 17:
-                        return _value17;
-                    case 18:
-                        return _value18;
-                    case 19:
-                        return _value19;
-                    default:
-                        throw new IndexOutOfRangeException();
-                }
-            }
+                0 => _value0,
+                1 => _value1,
+                2 => _value2,
+                3 => _value3,
+                4 => _value4,
+                5 => _value5,
+                6 => _value6,
+                7 => _value7,
+                8 => _value8,
+                9 => _value9,
+                10 => _value10,
+                11 => _value11,
+                12 => _value12,
+                13 => _value13,
+                14 => _value14,
+                15 => _value15,
+                16 => _value16,
+                17 => _value17,
+                18 => _value18,
+                19 => _value19,
+                _ => throw new IndexOutOfRangeException(),
+            };
             set
             {
                 switch (index)
@@ -3183,25 +2835,25 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
         public Snapshot(
-            [CanBeNull] T0 value0,
-            [CanBeNull] T1 value1,
-            [CanBeNull] T2 value2,
-            [CanBeNull] T3 value3,
-            [CanBeNull] T4 value4,
-            [CanBeNull] T5 value5,
-            [CanBeNull] T6 value6,
-            [CanBeNull] T7 value7,
-            [CanBeNull] T8 value8,
-            [CanBeNull] T9 value9,
-            [CanBeNull] T10 value10,
-            [CanBeNull] T11 value11,
-            [CanBeNull] T12 value12,
-            [CanBeNull] T13 value13,
-            [CanBeNull] T14 value14,
-            [CanBeNull] T15 value15,
-            [CanBeNull] T16 value16,
-            [CanBeNull] T17 value17,
-            [CanBeNull] T18 value18)
+            [CanBeNull] T0? value0,
+            [CanBeNull] T1? value1,
+            [CanBeNull] T2? value2,
+            [CanBeNull] T3? value3,
+            [CanBeNull] T4? value4,
+            [CanBeNull] T5? value5,
+            [CanBeNull] T6? value6,
+            [CanBeNull] T7? value7,
+            [CanBeNull] T8? value8,
+            [CanBeNull] T9? value9,
+            [CanBeNull] T10? value10,
+            [CanBeNull] T11? value11,
+            [CanBeNull] T12? value12,
+            [CanBeNull] T13? value13,
+            [CanBeNull] T14? value14,
+            [CanBeNull] T15? value15,
+            [CanBeNull] T16? value16,
+            [CanBeNull] T17? value17,
+            [CanBeNull] T18? value18)
         {
             _value0 = value0;
             _value1 = value1;
@@ -3224,25 +2876,25 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
             _value18 = value18;
         }
 
-        private T0 _value0;
-        private T1 _value1;
-        private T2 _value2;
-        private T3 _value3;
-        private T4 _value4;
-        private T5 _value5;
-        private T6 _value6;
-        private T7 _value7;
-        private T8 _value8;
-        private T9 _value9;
-        private T10 _value10;
-        private T11 _value11;
-        private T12 _value12;
-        private T13 _value13;
-        private T14 _value14;
-        private T15 _value15;
-        private T16 _value16;
-        private T17 _value17;
-        private T18 _value18;
+        private T0? _value0;
+        private T1? _value1;
+        private T2? _value2;
+        private T3? _value3;
+        private T4? _value4;
+        private T5? _value5;
+        private T6? _value6;
+        private T7? _value7;
+        private T8? _value8;
+        private T9? _value9;
+        private T10? _value10;
+        private T11? _value11;
+        private T12? _value12;
+        private T13? _value13;
+        private T14? _value14;
+        private T15? _value15;
+        private T16? _value16;
+        private T17? _value17;
+        private T18? _value18;
 
         /// <summary>
         ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
@@ -3260,54 +2912,31 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     any release. You should only use it directly in your code with extreme caution and knowing that
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
-        public object this[int index]
+        public object? this[int index]
         {
-            get
+            get => index switch
             {
-                switch (index)
-                {
-                    case 0:
-                        return _value0;
-                    case 1:
-                        return _value1;
-                    case 2:
-                        return _value2;
-                    case 3:
-                        return _value3;
-                    case 4:
-                        return _value4;
-                    case 5:
-                        return _value5;
-                    case 6:
-                        return _value6;
-                    case 7:
-                        return _value7;
-                    case 8:
-                        return _value8;
-                    case 9:
-                        return _value9;
-                    case 10:
-                        return _value10;
-                    case 11:
-                        return _value11;
-                    case 12:
-                        return _value12;
-                    case 13:
-                        return _value13;
-                    case 14:
-                        return _value14;
-                    case 15:
-                        return _value15;
-                    case 16:
-                        return _value16;
-                    case 17:
-                        return _value17;
-                    case 18:
-                        return _value18;
-                    default:
-                        throw new IndexOutOfRangeException();
-                }
-            }
+                0 => _value0,
+                1 => _value1,
+                2 => _value2,
+                3 => _value3,
+                4 => _value4,
+                5 => _value5,
+                6 => _value6,
+                7 => _value7,
+                8 => _value8,
+                9 => _value9,
+                10 => _value10,
+                11 => _value11,
+                12 => _value12,
+                13 => _value13,
+                14 => _value14,
+                15 => _value15,
+                16 => _value16,
+                17 => _value17,
+                18 => _value18,
+                _ => throw new IndexOutOfRangeException(),
+            };
             set
             {
                 switch (index)
@@ -3405,24 +3034,24 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
         public Snapshot(
-            [CanBeNull] T0 value0,
-            [CanBeNull] T1 value1,
-            [CanBeNull] T2 value2,
-            [CanBeNull] T3 value3,
-            [CanBeNull] T4 value4,
-            [CanBeNull] T5 value5,
-            [CanBeNull] T6 value6,
-            [CanBeNull] T7 value7,
-            [CanBeNull] T8 value8,
-            [CanBeNull] T9 value9,
-            [CanBeNull] T10 value10,
-            [CanBeNull] T11 value11,
-            [CanBeNull] T12 value12,
-            [CanBeNull] T13 value13,
-            [CanBeNull] T14 value14,
-            [CanBeNull] T15 value15,
-            [CanBeNull] T16 value16,
-            [CanBeNull] T17 value17)
+            [CanBeNull] T0? value0,
+            [CanBeNull] T1? value1,
+            [CanBeNull] T2? value2,
+            [CanBeNull] T3? value3,
+            [CanBeNull] T4? value4,
+            [CanBeNull] T5? value5,
+            [CanBeNull] T6? value6,
+            [CanBeNull] T7? value7,
+            [CanBeNull] T8? value8,
+            [CanBeNull] T9? value9,
+            [CanBeNull] T10? value10,
+            [CanBeNull] T11? value11,
+            [CanBeNull] T12? value12,
+            [CanBeNull] T13? value13,
+            [CanBeNull] T14? value14,
+            [CanBeNull] T15? value15,
+            [CanBeNull] T16? value16,
+            [CanBeNull] T17? value17)
         {
             _value0 = value0;
             _value1 = value1;
@@ -3444,24 +3073,24 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
             _value17 = value17;
         }
 
-        private T0 _value0;
-        private T1 _value1;
-        private T2 _value2;
-        private T3 _value3;
-        private T4 _value4;
-        private T5 _value5;
-        private T6 _value6;
-        private T7 _value7;
-        private T8 _value8;
-        private T9 _value9;
-        private T10 _value10;
-        private T11 _value11;
-        private T12 _value12;
-        private T13 _value13;
-        private T14 _value14;
-        private T15 _value15;
-        private T16 _value16;
-        private T17 _value17;
+        private T0? _value0;
+        private T1? _value1;
+        private T2? _value2;
+        private T3? _value3;
+        private T4? _value4;
+        private T5? _value5;
+        private T6? _value6;
+        private T7? _value7;
+        private T8? _value8;
+        private T9? _value9;
+        private T10? _value10;
+        private T11? _value11;
+        private T12? _value12;
+        private T13? _value13;
+        private T14? _value14;
+        private T15? _value15;
+        private T16? _value16;
+        private T17? _value17;
 
         /// <summary>
         ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
@@ -3479,52 +3108,30 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     any release. You should only use it directly in your code with extreme caution and knowing that
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
-        public object this[int index]
+        public object? this[int index]
         {
-            get
+            get => index switch
             {
-                switch (index)
-                {
-                    case 0:
-                        return _value0;
-                    case 1:
-                        return _value1;
-                    case 2:
-                        return _value2;
-                    case 3:
-                        return _value3;
-                    case 4:
-                        return _value4;
-                    case 5:
-                        return _value5;
-                    case 6:
-                        return _value6;
-                    case 7:
-                        return _value7;
-                    case 8:
-                        return _value8;
-                    case 9:
-                        return _value9;
-                    case 10:
-                        return _value10;
-                    case 11:
-                        return _value11;
-                    case 12:
-                        return _value12;
-                    case 13:
-                        return _value13;
-                    case 14:
-                        return _value14;
-                    case 15:
-                        return _value15;
-                    case 16:
-                        return _value16;
-                    case 17:
-                        return _value17;
-                    default:
-                        throw new IndexOutOfRangeException();
-                }
-            }
+                0 => _value0,
+                1 => _value1,
+                2 => _value2,
+                3 => _value3,
+                4 => _value4,
+                5 => _value5,
+                6 => _value6,
+                7 => _value7,
+                8 => _value8,
+                9 => _value9,
+                10 => _value10,
+                11 => _value11,
+                12 => _value12,
+                13 => _value13,
+                14 => _value14,
+                15 => _value15,
+                16 => _value16,
+                17 => _value17,
+                _ => throw new IndexOutOfRangeException(),
+            };
             set
             {
                 switch (index)
@@ -3619,23 +3226,23 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
         public Snapshot(
-            [CanBeNull] T0 value0,
-            [CanBeNull] T1 value1,
-            [CanBeNull] T2 value2,
-            [CanBeNull] T3 value3,
-            [CanBeNull] T4 value4,
-            [CanBeNull] T5 value5,
-            [CanBeNull] T6 value6,
-            [CanBeNull] T7 value7,
-            [CanBeNull] T8 value8,
-            [CanBeNull] T9 value9,
-            [CanBeNull] T10 value10,
-            [CanBeNull] T11 value11,
-            [CanBeNull] T12 value12,
-            [CanBeNull] T13 value13,
-            [CanBeNull] T14 value14,
-            [CanBeNull] T15 value15,
-            [CanBeNull] T16 value16)
+            [CanBeNull] T0? value0,
+            [CanBeNull] T1? value1,
+            [CanBeNull] T2? value2,
+            [CanBeNull] T3? value3,
+            [CanBeNull] T4? value4,
+            [CanBeNull] T5? value5,
+            [CanBeNull] T6? value6,
+            [CanBeNull] T7? value7,
+            [CanBeNull] T8? value8,
+            [CanBeNull] T9? value9,
+            [CanBeNull] T10? value10,
+            [CanBeNull] T11? value11,
+            [CanBeNull] T12? value12,
+            [CanBeNull] T13? value13,
+            [CanBeNull] T14? value14,
+            [CanBeNull] T15? value15,
+            [CanBeNull] T16? value16)
         {
             _value0 = value0;
             _value1 = value1;
@@ -3656,23 +3263,23 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
             _value16 = value16;
         }
 
-        private T0 _value0;
-        private T1 _value1;
-        private T2 _value2;
-        private T3 _value3;
-        private T4 _value4;
-        private T5 _value5;
-        private T6 _value6;
-        private T7 _value7;
-        private T8 _value8;
-        private T9 _value9;
-        private T10 _value10;
-        private T11 _value11;
-        private T12 _value12;
-        private T13 _value13;
-        private T14 _value14;
-        private T15 _value15;
-        private T16 _value16;
+        private T0? _value0;
+        private T1? _value1;
+        private T2? _value2;
+        private T3? _value3;
+        private T4? _value4;
+        private T5? _value5;
+        private T6? _value6;
+        private T7? _value7;
+        private T8? _value8;
+        private T9? _value9;
+        private T10? _value10;
+        private T11? _value11;
+        private T12? _value12;
+        private T13? _value13;
+        private T14? _value14;
+        private T15? _value15;
+        private T16? _value16;
 
         /// <summary>
         ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
@@ -3689,50 +3296,29 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     any release. You should only use it directly in your code with extreme caution and knowing that
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
-        public object this[int index]
+        public object? this[int index]
         {
-            get
+            get => index switch
             {
-                switch (index)
-                {
-                    case 0:
-                        return _value0;
-                    case 1:
-                        return _value1;
-                    case 2:
-                        return _value2;
-                    case 3:
-                        return _value3;
-                    case 4:
-                        return _value4;
-                    case 5:
-                        return _value5;
-                    case 6:
-                        return _value6;
-                    case 7:
-                        return _value7;
-                    case 8:
-                        return _value8;
-                    case 9:
-                        return _value9;
-                    case 10:
-                        return _value10;
-                    case 11:
-                        return _value11;
-                    case 12:
-                        return _value12;
-                    case 13:
-                        return _value13;
-                    case 14:
-                        return _value14;
-                    case 15:
-                        return _value15;
-                    case 16:
-                        return _value16;
-                    default:
-                        throw new IndexOutOfRangeException();
-                }
-            }
+                0 => _value0,
+                1 => _value1,
+                2 => _value2,
+                3 => _value3,
+                4 => _value4,
+                5 => _value5,
+                6 => _value6,
+                7 => _value7,
+                8 => _value8,
+                9 => _value9,
+                10 => _value10,
+                11 => _value11,
+                12 => _value12,
+                13 => _value13,
+                14 => _value14,
+                15 => _value15,
+                16 => _value16,
+                _ => throw new IndexOutOfRangeException(),
+            };
             set
             {
                 switch (index)
@@ -3824,22 +3410,22 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
         public Snapshot(
-            [CanBeNull] T0 value0,
-            [CanBeNull] T1 value1,
-            [CanBeNull] T2 value2,
-            [CanBeNull] T3 value3,
-            [CanBeNull] T4 value4,
-            [CanBeNull] T5 value5,
-            [CanBeNull] T6 value6,
-            [CanBeNull] T7 value7,
-            [CanBeNull] T8 value8,
-            [CanBeNull] T9 value9,
-            [CanBeNull] T10 value10,
-            [CanBeNull] T11 value11,
-            [CanBeNull] T12 value12,
-            [CanBeNull] T13 value13,
-            [CanBeNull] T14 value14,
-            [CanBeNull] T15 value15)
+            [CanBeNull] T0? value0,
+            [CanBeNull] T1? value1,
+            [CanBeNull] T2? value2,
+            [CanBeNull] T3? value3,
+            [CanBeNull] T4? value4,
+            [CanBeNull] T5? value5,
+            [CanBeNull] T6? value6,
+            [CanBeNull] T7? value7,
+            [CanBeNull] T8? value8,
+            [CanBeNull] T9? value9,
+            [CanBeNull] T10? value10,
+            [CanBeNull] T11? value11,
+            [CanBeNull] T12? value12,
+            [CanBeNull] T13? value13,
+            [CanBeNull] T14? value14,
+            [CanBeNull] T15? value15)
         {
             _value0 = value0;
             _value1 = value1;
@@ -3859,22 +3445,22 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
             _value15 = value15;
         }
 
-        private T0 _value0;
-        private T1 _value1;
-        private T2 _value2;
-        private T3 _value3;
-        private T4 _value4;
-        private T5 _value5;
-        private T6 _value6;
-        private T7 _value7;
-        private T8 _value8;
-        private T9 _value9;
-        private T10 _value10;
-        private T11 _value11;
-        private T12 _value12;
-        private T13 _value13;
-        private T14 _value14;
-        private T15 _value15;
+        private T0? _value0;
+        private T1? _value1;
+        private T2? _value2;
+        private T3? _value3;
+        private T4? _value4;
+        private T5? _value5;
+        private T6? _value6;
+        private T7? _value7;
+        private T8? _value8;
+        private T9? _value9;
+        private T10? _value10;
+        private T11? _value11;
+        private T12? _value12;
+        private T13? _value13;
+        private T14? _value14;
+        private T15? _value15;
 
         /// <summary>
         ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
@@ -3891,48 +3477,28 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     any release. You should only use it directly in your code with extreme caution and knowing that
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
-        public object this[int index]
+        public object? this[int index]
         {
-            get
+            get => index switch
             {
-                switch (index)
-                {
-                    case 0:
-                        return _value0;
-                    case 1:
-                        return _value1;
-                    case 2:
-                        return _value2;
-                    case 3:
-                        return _value3;
-                    case 4:
-                        return _value4;
-                    case 5:
-                        return _value5;
-                    case 6:
-                        return _value6;
-                    case 7:
-                        return _value7;
-                    case 8:
-                        return _value8;
-                    case 9:
-                        return _value9;
-                    case 10:
-                        return _value10;
-                    case 11:
-                        return _value11;
-                    case 12:
-                        return _value12;
-                    case 13:
-                        return _value13;
-                    case 14:
-                        return _value14;
-                    case 15:
-                        return _value15;
-                    default:
-                        throw new IndexOutOfRangeException();
-                }
-            }
+                0 => _value0,
+                1 => _value1,
+                2 => _value2,
+                3 => _value3,
+                4 => _value4,
+                5 => _value5,
+                6 => _value6,
+                7 => _value7,
+                8 => _value8,
+                9 => _value9,
+                10 => _value10,
+                11 => _value11,
+                12 => _value12,
+                13 => _value13,
+                14 => _value14,
+                15 => _value15,
+                _ => throw new IndexOutOfRangeException(),
+            };
             set
             {
                 switch (index)
@@ -4021,21 +3587,21 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
         public Snapshot(
-            [CanBeNull] T0 value0,
-            [CanBeNull] T1 value1,
-            [CanBeNull] T2 value2,
-            [CanBeNull] T3 value3,
-            [CanBeNull] T4 value4,
-            [CanBeNull] T5 value5,
-            [CanBeNull] T6 value6,
-            [CanBeNull] T7 value7,
-            [CanBeNull] T8 value8,
-            [CanBeNull] T9 value9,
-            [CanBeNull] T10 value10,
-            [CanBeNull] T11 value11,
-            [CanBeNull] T12 value12,
-            [CanBeNull] T13 value13,
-            [CanBeNull] T14 value14)
+            [CanBeNull] T0? value0,
+            [CanBeNull] T1? value1,
+            [CanBeNull] T2? value2,
+            [CanBeNull] T3? value3,
+            [CanBeNull] T4? value4,
+            [CanBeNull] T5? value5,
+            [CanBeNull] T6? value6,
+            [CanBeNull] T7? value7,
+            [CanBeNull] T8? value8,
+            [CanBeNull] T9? value9,
+            [CanBeNull] T10? value10,
+            [CanBeNull] T11? value11,
+            [CanBeNull] T12? value12,
+            [CanBeNull] T13? value13,
+            [CanBeNull] T14? value14)
         {
             _value0 = value0;
             _value1 = value1;
@@ -4054,21 +3620,21 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
             _value14 = value14;
         }
 
-        private T0 _value0;
-        private T1 _value1;
-        private T2 _value2;
-        private T3 _value3;
-        private T4 _value4;
-        private T5 _value5;
-        private T6 _value6;
-        private T7 _value7;
-        private T8 _value8;
-        private T9 _value9;
-        private T10 _value10;
-        private T11 _value11;
-        private T12 _value12;
-        private T13 _value13;
-        private T14 _value14;
+        private T0? _value0;
+        private T1? _value1;
+        private T2? _value2;
+        private T3? _value3;
+        private T4? _value4;
+        private T5? _value5;
+        private T6? _value6;
+        private T7? _value7;
+        private T8? _value8;
+        private T9? _value9;
+        private T10? _value10;
+        private T11? _value11;
+        private T12? _value12;
+        private T13? _value13;
+        private T14? _value14;
 
         /// <summary>
         ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
@@ -4085,46 +3651,27 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     any release. You should only use it directly in your code with extreme caution and knowing that
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
-        public object this[int index]
+        public object? this[int index]
         {
-            get
+            get => index switch
             {
-                switch (index)
-                {
-                    case 0:
-                        return _value0;
-                    case 1:
-                        return _value1;
-                    case 2:
-                        return _value2;
-                    case 3:
-                        return _value3;
-                    case 4:
-                        return _value4;
-                    case 5:
-                        return _value5;
-                    case 6:
-                        return _value6;
-                    case 7:
-                        return _value7;
-                    case 8:
-                        return _value8;
-                    case 9:
-                        return _value9;
-                    case 10:
-                        return _value10;
-                    case 11:
-                        return _value11;
-                    case 12:
-                        return _value12;
-                    case 13:
-                        return _value13;
-                    case 14:
-                        return _value14;
-                    default:
-                        throw new IndexOutOfRangeException();
-                }
-            }
+                0 => _value0,
+                1 => _value1,
+                2 => _value2,
+                3 => _value3,
+                4 => _value4,
+                5 => _value5,
+                6 => _value6,
+                7 => _value7,
+                8 => _value8,
+                9 => _value9,
+                10 => _value10,
+                11 => _value11,
+                12 => _value12,
+                13 => _value13,
+                14 => _value14,
+                _ => throw new IndexOutOfRangeException(),
+            };
             set
             {
                 switch (index)
@@ -4210,20 +3757,20 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
         public Snapshot(
-            [CanBeNull] T0 value0,
-            [CanBeNull] T1 value1,
-            [CanBeNull] T2 value2,
-            [CanBeNull] T3 value3,
-            [CanBeNull] T4 value4,
-            [CanBeNull] T5 value5,
-            [CanBeNull] T6 value6,
-            [CanBeNull] T7 value7,
-            [CanBeNull] T8 value8,
-            [CanBeNull] T9 value9,
-            [CanBeNull] T10 value10,
-            [CanBeNull] T11 value11,
-            [CanBeNull] T12 value12,
-            [CanBeNull] T13 value13)
+            [CanBeNull] T0? value0,
+            [CanBeNull] T1? value1,
+            [CanBeNull] T2? value2,
+            [CanBeNull] T3? value3,
+            [CanBeNull] T4? value4,
+            [CanBeNull] T5? value5,
+            [CanBeNull] T6? value6,
+            [CanBeNull] T7? value7,
+            [CanBeNull] T8? value8,
+            [CanBeNull] T9? value9,
+            [CanBeNull] T10? value10,
+            [CanBeNull] T11? value11,
+            [CanBeNull] T12? value12,
+            [CanBeNull] T13? value13)
         {
             _value0 = value0;
             _value1 = value1;
@@ -4241,20 +3788,20 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
             _value13 = value13;
         }
 
-        private T0 _value0;
-        private T1 _value1;
-        private T2 _value2;
-        private T3 _value3;
-        private T4 _value4;
-        private T5 _value5;
-        private T6 _value6;
-        private T7 _value7;
-        private T8 _value8;
-        private T9 _value9;
-        private T10 _value10;
-        private T11 _value11;
-        private T12 _value12;
-        private T13 _value13;
+        private T0? _value0;
+        private T1? _value1;
+        private T2? _value2;
+        private T3? _value3;
+        private T4? _value4;
+        private T5? _value5;
+        private T6? _value6;
+        private T7? _value7;
+        private T8? _value8;
+        private T9? _value9;
+        private T10? _value10;
+        private T11? _value11;
+        private T12? _value12;
+        private T13? _value13;
 
         /// <summary>
         ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
@@ -4271,44 +3818,26 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     any release. You should only use it directly in your code with extreme caution and knowing that
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
-        public object this[int index]
+        public object? this[int index]
         {
-            get
+            get => index switch
             {
-                switch (index)
-                {
-                    case 0:
-                        return _value0;
-                    case 1:
-                        return _value1;
-                    case 2:
-                        return _value2;
-                    case 3:
-                        return _value3;
-                    case 4:
-                        return _value4;
-                    case 5:
-                        return _value5;
-                    case 6:
-                        return _value6;
-                    case 7:
-                        return _value7;
-                    case 8:
-                        return _value8;
-                    case 9:
-                        return _value9;
-                    case 10:
-                        return _value10;
-                    case 11:
-                        return _value11;
-                    case 12:
-                        return _value12;
-                    case 13:
-                        return _value13;
-                    default:
-                        throw new IndexOutOfRangeException();
-                }
-            }
+                0 => _value0,
+                1 => _value1,
+                2 => _value2,
+                3 => _value3,
+                4 => _value4,
+                5 => _value5,
+                6 => _value6,
+                7 => _value7,
+                8 => _value8,
+                9 => _value9,
+                10 => _value10,
+                11 => _value11,
+                12 => _value12,
+                13 => _value13,
+                _ => throw new IndexOutOfRangeException(),
+            };
             set
             {
                 switch (index)
@@ -4391,19 +3920,19 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
         public Snapshot(
-            [CanBeNull] T0 value0,
-            [CanBeNull] T1 value1,
-            [CanBeNull] T2 value2,
-            [CanBeNull] T3 value3,
-            [CanBeNull] T4 value4,
-            [CanBeNull] T5 value5,
-            [CanBeNull] T6 value6,
-            [CanBeNull] T7 value7,
-            [CanBeNull] T8 value8,
-            [CanBeNull] T9 value9,
-            [CanBeNull] T10 value10,
-            [CanBeNull] T11 value11,
-            [CanBeNull] T12 value12)
+            [CanBeNull] T0? value0,
+            [CanBeNull] T1? value1,
+            [CanBeNull] T2? value2,
+            [CanBeNull] T3? value3,
+            [CanBeNull] T4? value4,
+            [CanBeNull] T5? value5,
+            [CanBeNull] T6? value6,
+            [CanBeNull] T7? value7,
+            [CanBeNull] T8? value8,
+            [CanBeNull] T9? value9,
+            [CanBeNull] T10? value10,
+            [CanBeNull] T11? value11,
+            [CanBeNull] T12? value12)
         {
             _value0 = value0;
             _value1 = value1;
@@ -4420,19 +3949,19 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
             _value12 = value12;
         }
 
-        private T0 _value0;
-        private T1 _value1;
-        private T2 _value2;
-        private T3 _value3;
-        private T4 _value4;
-        private T5 _value5;
-        private T6 _value6;
-        private T7 _value7;
-        private T8 _value8;
-        private T9 _value9;
-        private T10 _value10;
-        private T11 _value11;
-        private T12 _value12;
+        private T0? _value0;
+        private T1? _value1;
+        private T2? _value2;
+        private T3? _value3;
+        private T4? _value4;
+        private T5? _value5;
+        private T6? _value6;
+        private T7? _value7;
+        private T8? _value8;
+        private T9? _value9;
+        private T10? _value10;
+        private T11? _value11;
+        private T12? _value12;
 
         /// <summary>
         ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
@@ -4449,42 +3978,25 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     any release. You should only use it directly in your code with extreme caution and knowing that
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
-        public object this[int index]
+        public object? this[int index]
         {
-            get
+            get => index switch
             {
-                switch (index)
-                {
-                    case 0:
-                        return _value0;
-                    case 1:
-                        return _value1;
-                    case 2:
-                        return _value2;
-                    case 3:
-                        return _value3;
-                    case 4:
-                        return _value4;
-                    case 5:
-                        return _value5;
-                    case 6:
-                        return _value6;
-                    case 7:
-                        return _value7;
-                    case 8:
-                        return _value8;
-                    case 9:
-                        return _value9;
-                    case 10:
-                        return _value10;
-                    case 11:
-                        return _value11;
-                    case 12:
-                        return _value12;
-                    default:
-                        throw new IndexOutOfRangeException();
-                }
-            }
+                0 => _value0,
+                1 => _value1,
+                2 => _value2,
+                3 => _value3,
+                4 => _value4,
+                5 => _value5,
+                6 => _value6,
+                7 => _value7,
+                8 => _value8,
+                9 => _value9,
+                10 => _value10,
+                11 => _value11,
+                12 => _value12,
+                _ => throw new IndexOutOfRangeException(),
+            };
             set
             {
                 switch (index)
@@ -4564,18 +4076,18 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
         public Snapshot(
-            [CanBeNull] T0 value0,
-            [CanBeNull] T1 value1,
-            [CanBeNull] T2 value2,
-            [CanBeNull] T3 value3,
-            [CanBeNull] T4 value4,
-            [CanBeNull] T5 value5,
-            [CanBeNull] T6 value6,
-            [CanBeNull] T7 value7,
-            [CanBeNull] T8 value8,
-            [CanBeNull] T9 value9,
-            [CanBeNull] T10 value10,
-            [CanBeNull] T11 value11)
+            [CanBeNull] T0? value0,
+            [CanBeNull] T1? value1,
+            [CanBeNull] T2? value2,
+            [CanBeNull] T3? value3,
+            [CanBeNull] T4? value4,
+            [CanBeNull] T5? value5,
+            [CanBeNull] T6? value6,
+            [CanBeNull] T7? value7,
+            [CanBeNull] T8? value8,
+            [CanBeNull] T9? value9,
+            [CanBeNull] T10? value10,
+            [CanBeNull] T11? value11)
         {
             _value0 = value0;
             _value1 = value1;
@@ -4591,18 +4103,18 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
             _value11 = value11;
         }
 
-        private T0 _value0;
-        private T1 _value1;
-        private T2 _value2;
-        private T3 _value3;
-        private T4 _value4;
-        private T5 _value5;
-        private T6 _value6;
-        private T7 _value7;
-        private T8 _value8;
-        private T9 _value9;
-        private T10 _value10;
-        private T11 _value11;
+        private T0? _value0;
+        private T1? _value1;
+        private T2? _value2;
+        private T3? _value3;
+        private T4? _value4;
+        private T5? _value5;
+        private T6? _value6;
+        private T7? _value7;
+        private T8? _value8;
+        private T9? _value9;
+        private T10? _value10;
+        private T11? _value11;
 
         /// <summary>
         ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
@@ -4619,40 +4131,24 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     any release. You should only use it directly in your code with extreme caution and knowing that
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
-        public object this[int index]
+        public object? this[int index]
         {
-            get
+            get => index switch
             {
-                switch (index)
-                {
-                    case 0:
-                        return _value0;
-                    case 1:
-                        return _value1;
-                    case 2:
-                        return _value2;
-                    case 3:
-                        return _value3;
-                    case 4:
-                        return _value4;
-                    case 5:
-                        return _value5;
-                    case 6:
-                        return _value6;
-                    case 7:
-                        return _value7;
-                    case 8:
-                        return _value8;
-                    case 9:
-                        return _value9;
-                    case 10:
-                        return _value10;
-                    case 11:
-                        return _value11;
-                    default:
-                        throw new IndexOutOfRangeException();
-                }
-            }
+                0 => _value0,
+                1 => _value1,
+                2 => _value2,
+                3 => _value3,
+                4 => _value4,
+                5 => _value5,
+                6 => _value6,
+                7 => _value7,
+                8 => _value8,
+                9 => _value9,
+                10 => _value10,
+                11 => _value11,
+                _ => throw new IndexOutOfRangeException(),
+            };
             set
             {
                 switch (index)
@@ -4729,17 +4225,17 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
         public Snapshot(
-            [CanBeNull] T0 value0,
-            [CanBeNull] T1 value1,
-            [CanBeNull] T2 value2,
-            [CanBeNull] T3 value3,
-            [CanBeNull] T4 value4,
-            [CanBeNull] T5 value5,
-            [CanBeNull] T6 value6,
-            [CanBeNull] T7 value7,
-            [CanBeNull] T8 value8,
-            [CanBeNull] T9 value9,
-            [CanBeNull] T10 value10)
+            [CanBeNull] T0? value0,
+            [CanBeNull] T1? value1,
+            [CanBeNull] T2? value2,
+            [CanBeNull] T3? value3,
+            [CanBeNull] T4? value4,
+            [CanBeNull] T5? value5,
+            [CanBeNull] T6? value6,
+            [CanBeNull] T7? value7,
+            [CanBeNull] T8? value8,
+            [CanBeNull] T9? value9,
+            [CanBeNull] T10? value10)
         {
             _value0 = value0;
             _value1 = value1;
@@ -4754,17 +4250,17 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
             _value10 = value10;
         }
 
-        private T0 _value0;
-        private T1 _value1;
-        private T2 _value2;
-        private T3 _value3;
-        private T4 _value4;
-        private T5 _value5;
-        private T6 _value6;
-        private T7 _value7;
-        private T8 _value8;
-        private T9 _value9;
-        private T10 _value10;
+        private T0? _value0;
+        private T1? _value1;
+        private T2? _value2;
+        private T3? _value3;
+        private T4? _value4;
+        private T5? _value5;
+        private T6? _value6;
+        private T7? _value7;
+        private T8? _value8;
+        private T9? _value9;
+        private T10? _value10;
 
         /// <summary>
         ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
@@ -4781,38 +4277,23 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     any release. You should only use it directly in your code with extreme caution and knowing that
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
-        public object this[int index]
+        public object? this[int index]
         {
-            get
+            get => index switch
             {
-                switch (index)
-                {
-                    case 0:
-                        return _value0;
-                    case 1:
-                        return _value1;
-                    case 2:
-                        return _value2;
-                    case 3:
-                        return _value3;
-                    case 4:
-                        return _value4;
-                    case 5:
-                        return _value5;
-                    case 6:
-                        return _value6;
-                    case 7:
-                        return _value7;
-                    case 8:
-                        return _value8;
-                    case 9:
-                        return _value9;
-                    case 10:
-                        return _value10;
-                    default:
-                        throw new IndexOutOfRangeException();
-                }
-            }
+                0 => _value0,
+                1 => _value1,
+                2 => _value2,
+                3 => _value3,
+                4 => _value4,
+                5 => _value5,
+                6 => _value6,
+                7 => _value7,
+                8 => _value8,
+                9 => _value9,
+                10 => _value10,
+                _ => throw new IndexOutOfRangeException(),
+            };
             set
             {
                 switch (index)
@@ -4886,16 +4367,16 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
         public Snapshot(
-            [CanBeNull] T0 value0,
-            [CanBeNull] T1 value1,
-            [CanBeNull] T2 value2,
-            [CanBeNull] T3 value3,
-            [CanBeNull] T4 value4,
-            [CanBeNull] T5 value5,
-            [CanBeNull] T6 value6,
-            [CanBeNull] T7 value7,
-            [CanBeNull] T8 value8,
-            [CanBeNull] T9 value9)
+            [CanBeNull] T0? value0,
+            [CanBeNull] T1? value1,
+            [CanBeNull] T2? value2,
+            [CanBeNull] T3? value3,
+            [CanBeNull] T4? value4,
+            [CanBeNull] T5? value5,
+            [CanBeNull] T6? value6,
+            [CanBeNull] T7? value7,
+            [CanBeNull] T8? value8,
+            [CanBeNull] T9? value9)
         {
             _value0 = value0;
             _value1 = value1;
@@ -4909,16 +4390,16 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
             _value9 = value9;
         }
 
-        private T0 _value0;
-        private T1 _value1;
-        private T2 _value2;
-        private T3 _value3;
-        private T4 _value4;
-        private T5 _value5;
-        private T6 _value6;
-        private T7 _value7;
-        private T8 _value8;
-        private T9 _value9;
+        private T0? _value0;
+        private T1? _value1;
+        private T2? _value2;
+        private T3? _value3;
+        private T4? _value4;
+        private T5? _value5;
+        private T6? _value6;
+        private T7? _value7;
+        private T8? _value8;
+        private T9? _value9;
 
         /// <summary>
         ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
@@ -4935,36 +4416,22 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     any release. You should only use it directly in your code with extreme caution and knowing that
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
-        public object this[int index]
+        public object? this[int index]
         {
-            get
+            get => index switch
             {
-                switch (index)
-                {
-                    case 0:
-                        return _value0;
-                    case 1:
-                        return _value1;
-                    case 2:
-                        return _value2;
-                    case 3:
-                        return _value3;
-                    case 4:
-                        return _value4;
-                    case 5:
-                        return _value5;
-                    case 6:
-                        return _value6;
-                    case 7:
-                        return _value7;
-                    case 8:
-                        return _value8;
-                    case 9:
-                        return _value9;
-                    default:
-                        throw new IndexOutOfRangeException();
-                }
-            }
+                0 => _value0,
+                1 => _value1,
+                2 => _value2,
+                3 => _value3,
+                4 => _value4,
+                5 => _value5,
+                6 => _value6,
+                7 => _value7,
+                8 => _value8,
+                9 => _value9,
+                _ => throw new IndexOutOfRangeException(),
+            };
             set
             {
                 switch (index)
@@ -5035,15 +4502,15 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
         public Snapshot(
-            [CanBeNull] T0 value0,
-            [CanBeNull] T1 value1,
-            [CanBeNull] T2 value2,
-            [CanBeNull] T3 value3,
-            [CanBeNull] T4 value4,
-            [CanBeNull] T5 value5,
-            [CanBeNull] T6 value6,
-            [CanBeNull] T7 value7,
-            [CanBeNull] T8 value8)
+            [CanBeNull] T0? value0,
+            [CanBeNull] T1? value1,
+            [CanBeNull] T2? value2,
+            [CanBeNull] T3? value3,
+            [CanBeNull] T4? value4,
+            [CanBeNull] T5? value5,
+            [CanBeNull] T6? value6,
+            [CanBeNull] T7? value7,
+            [CanBeNull] T8? value8)
         {
             _value0 = value0;
             _value1 = value1;
@@ -5056,15 +4523,15 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
             _value8 = value8;
         }
 
-        private T0 _value0;
-        private T1 _value1;
-        private T2 _value2;
-        private T3 _value3;
-        private T4 _value4;
-        private T5 _value5;
-        private T6 _value6;
-        private T7 _value7;
-        private T8 _value8;
+        private T0? _value0;
+        private T1? _value1;
+        private T2? _value2;
+        private T3? _value3;
+        private T4? _value4;
+        private T5? _value5;
+        private T6? _value6;
+        private T7? _value7;
+        private T8? _value8;
 
         /// <summary>
         ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
@@ -5081,34 +4548,21 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     any release. You should only use it directly in your code with extreme caution and knowing that
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
-        public object this[int index]
+        public object? this[int index]
         {
-            get
+            get => index switch
             {
-                switch (index)
-                {
-                    case 0:
-                        return _value0;
-                    case 1:
-                        return _value1;
-                    case 2:
-                        return _value2;
-                    case 3:
-                        return _value3;
-                    case 4:
-                        return _value4;
-                    case 5:
-                        return _value5;
-                    case 6:
-                        return _value6;
-                    case 7:
-                        return _value7;
-                    case 8:
-                        return _value8;
-                    default:
-                        throw new IndexOutOfRangeException();
-                }
-            }
+                0 => _value0,
+                1 => _value1,
+                2 => _value2,
+                3 => _value3,
+                4 => _value4,
+                5 => _value5,
+                6 => _value6,
+                7 => _value7,
+                8 => _value8,
+                _ => throw new IndexOutOfRangeException(),
+            };
             set
             {
                 switch (index)
@@ -5176,14 +4630,14 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
         public Snapshot(
-            [CanBeNull] T0 value0,
-            [CanBeNull] T1 value1,
-            [CanBeNull] T2 value2,
-            [CanBeNull] T3 value3,
-            [CanBeNull] T4 value4,
-            [CanBeNull] T5 value5,
-            [CanBeNull] T6 value6,
-            [CanBeNull] T7 value7)
+            [CanBeNull] T0? value0,
+            [CanBeNull] T1? value1,
+            [CanBeNull] T2? value2,
+            [CanBeNull] T3? value3,
+            [CanBeNull] T4? value4,
+            [CanBeNull] T5? value5,
+            [CanBeNull] T6? value6,
+            [CanBeNull] T7? value7)
         {
             _value0 = value0;
             _value1 = value1;
@@ -5195,14 +4649,14 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
             _value7 = value7;
         }
 
-        private T0 _value0;
-        private T1 _value1;
-        private T2 _value2;
-        private T3 _value3;
-        private T4 _value4;
-        private T5 _value5;
-        private T6 _value6;
-        private T7 _value7;
+        private T0? _value0;
+        private T1? _value1;
+        private T2? _value2;
+        private T3? _value3;
+        private T4? _value4;
+        private T5? _value5;
+        private T6? _value6;
+        private T7? _value7;
 
         /// <summary>
         ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
@@ -5219,32 +4673,20 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     any release. You should only use it directly in your code with extreme caution and knowing that
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
-        public object this[int index]
+        public object? this[int index]
         {
-            get
+            get => index switch
             {
-                switch (index)
-                {
-                    case 0:
-                        return _value0;
-                    case 1:
-                        return _value1;
-                    case 2:
-                        return _value2;
-                    case 3:
-                        return _value3;
-                    case 4:
-                        return _value4;
-                    case 5:
-                        return _value5;
-                    case 6:
-                        return _value6;
-                    case 7:
-                        return _value7;
-                    default:
-                        throw new IndexOutOfRangeException();
-                }
-            }
+                0 => _value0,
+                1 => _value1,
+                2 => _value2,
+                3 => _value3,
+                4 => _value4,
+                5 => _value5,
+                6 => _value6,
+                7 => _value7,
+                _ => throw new IndexOutOfRangeException(),
+            };
             set
             {
                 switch (index)
@@ -5309,13 +4751,13 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
         public Snapshot(
-            [CanBeNull] T0 value0,
-            [CanBeNull] T1 value1,
-            [CanBeNull] T2 value2,
-            [CanBeNull] T3 value3,
-            [CanBeNull] T4 value4,
-            [CanBeNull] T5 value5,
-            [CanBeNull] T6 value6)
+            [CanBeNull] T0? value0,
+            [CanBeNull] T1? value1,
+            [CanBeNull] T2? value2,
+            [CanBeNull] T3? value3,
+            [CanBeNull] T4? value4,
+            [CanBeNull] T5? value5,
+            [CanBeNull] T6? value6)
         {
             _value0 = value0;
             _value1 = value1;
@@ -5326,13 +4768,13 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
             _value6 = value6;
         }
 
-        private T0 _value0;
-        private T1 _value1;
-        private T2 _value2;
-        private T3 _value3;
-        private T4 _value4;
-        private T5 _value5;
-        private T6 _value6;
+        private T0? _value0;
+        private T1? _value1;
+        private T2? _value2;
+        private T3? _value3;
+        private T4? _value4;
+        private T5? _value5;
+        private T6? _value6;
 
         /// <summary>
         ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
@@ -5349,30 +4791,19 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     any release. You should only use it directly in your code with extreme caution and knowing that
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
-        public object this[int index]
+        public object? this[int index]
         {
-            get
+            get => index switch
             {
-                switch (index)
-                {
-                    case 0:
-                        return _value0;
-                    case 1:
-                        return _value1;
-                    case 2:
-                        return _value2;
-                    case 3:
-                        return _value3;
-                    case 4:
-                        return _value4;
-                    case 5:
-                        return _value5;
-                    case 6:
-                        return _value6;
-                    default:
-                        throw new IndexOutOfRangeException();
-                }
-            }
+                0 => _value0,
+                1 => _value1,
+                2 => _value2,
+                3 => _value3,
+                4 => _value4,
+                5 => _value5,
+                6 => _value6,
+                _ => throw new IndexOutOfRangeException(),
+            };
             set
             {
                 switch (index)
@@ -5434,12 +4865,12 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
         public Snapshot(
-            [CanBeNull] T0 value0,
-            [CanBeNull] T1 value1,
-            [CanBeNull] T2 value2,
-            [CanBeNull] T3 value3,
-            [CanBeNull] T4 value4,
-            [CanBeNull] T5 value5)
+            [CanBeNull] T0? value0,
+            [CanBeNull] T1? value1,
+            [CanBeNull] T2? value2,
+            [CanBeNull] T3? value3,
+            [CanBeNull] T4? value4,
+            [CanBeNull] T5? value5)
         {
             _value0 = value0;
             _value1 = value1;
@@ -5449,12 +4880,12 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
             _value5 = value5;
         }
 
-        private T0 _value0;
-        private T1 _value1;
-        private T2 _value2;
-        private T3 _value3;
-        private T4 _value4;
-        private T5 _value5;
+        private T0? _value0;
+        private T1? _value1;
+        private T2? _value2;
+        private T3? _value3;
+        private T4? _value4;
+        private T5? _value5;
 
         /// <summary>
         ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
@@ -5471,28 +4902,18 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     any release. You should only use it directly in your code with extreme caution and knowing that
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
-        public object this[int index]
+        public object? this[int index]
         {
-            get
+            get => index switch
             {
-                switch (index)
-                {
-                    case 0:
-                        return _value0;
-                    case 1:
-                        return _value1;
-                    case 2:
-                        return _value2;
-                    case 3:
-                        return _value3;
-                    case 4:
-                        return _value4;
-                    case 5:
-                        return _value5;
-                    default:
-                        throw new IndexOutOfRangeException();
-                }
-            }
+                0 => _value0,
+                1 => _value1,
+                2 => _value2,
+                3 => _value3,
+                4 => _value4,
+                5 => _value5,
+                _ => throw new IndexOutOfRangeException(),
+            };
             set
             {
                 switch (index)
@@ -5551,11 +4972,11 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
         public Snapshot(
-            [CanBeNull] T0 value0,
-            [CanBeNull] T1 value1,
-            [CanBeNull] T2 value2,
-            [CanBeNull] T3 value3,
-            [CanBeNull] T4 value4)
+            [CanBeNull] T0? value0,
+            [CanBeNull] T1? value1,
+            [CanBeNull] T2? value2,
+            [CanBeNull] T3? value3,
+            [CanBeNull] T4? value4)
         {
             _value0 = value0;
             _value1 = value1;
@@ -5564,11 +4985,11 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
             _value4 = value4;
         }
 
-        private T0 _value0;
-        private T1 _value1;
-        private T2 _value2;
-        private T3 _value3;
-        private T4 _value4;
+        private T0? _value0;
+        private T1? _value1;
+        private T2? _value2;
+        private T3? _value3;
+        private T4? _value4;
 
         /// <summary>
         ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
@@ -5585,26 +5006,17 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     any release. You should only use it directly in your code with extreme caution and knowing that
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
-        public object this[int index]
+        public object? this[int index]
         {
-            get
+            get => index switch
             {
-                switch (index)
-                {
-                    case 0:
-                        return _value0;
-                    case 1:
-                        return _value1;
-                    case 2:
-                        return _value2;
-                    case 3:
-                        return _value3;
-                    case 4:
-                        return _value4;
-                    default:
-                        throw new IndexOutOfRangeException();
-                }
-            }
+                0 => _value0,
+                1 => _value1,
+                2 => _value2,
+                3 => _value3,
+                4 => _value4,
+                _ => throw new IndexOutOfRangeException(),
+            };
             set
             {
                 switch (index)
@@ -5660,10 +5072,10 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
         public Snapshot(
-            [CanBeNull] T0 value0,
-            [CanBeNull] T1 value1,
-            [CanBeNull] T2 value2,
-            [CanBeNull] T3 value3)
+            [CanBeNull] T0? value0,
+            [CanBeNull] T1? value1,
+            [CanBeNull] T2? value2,
+            [CanBeNull] T3? value3)
         {
             _value0 = value0;
             _value1 = value1;
@@ -5671,10 +5083,10 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
             _value3 = value3;
         }
 
-        private T0 _value0;
-        private T1 _value1;
-        private T2 _value2;
-        private T3 _value3;
+        private T0? _value0;
+        private T1? _value1;
+        private T2? _value2;
+        private T3? _value3;
 
         /// <summary>
         ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
@@ -5691,24 +5103,16 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     any release. You should only use it directly in your code with extreme caution and knowing that
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
-        public object this[int index]
+        public object? this[int index]
         {
-            get
+            get => index switch
             {
-                switch (index)
-                {
-                    case 0:
-                        return _value0;
-                    case 1:
-                        return _value1;
-                    case 2:
-                        return _value2;
-                    case 3:
-                        return _value3;
-                    default:
-                        throw new IndexOutOfRangeException();
-                }
-            }
+                0 => _value0,
+                1 => _value1,
+                2 => _value2,
+                3 => _value3,
+                _ => throw new IndexOutOfRangeException(),
+            };
             set
             {
                 switch (index)
@@ -5761,18 +5165,18 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
         public Snapshot(
-            [CanBeNull] T0 value0,
-            [CanBeNull] T1 value1,
-            [CanBeNull] T2 value2)
+            [CanBeNull] T0? value0,
+            [CanBeNull] T1? value1,
+            [CanBeNull] T2? value2)
         {
             _value0 = value0;
             _value1 = value1;
             _value2 = value2;
         }
 
-        private T0 _value0;
-        private T1 _value1;
-        private T2 _value2;
+        private T0? _value0;
+        private T1? _value1;
+        private T2? _value2;
 
         /// <summary>
         ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
@@ -5789,22 +5193,15 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     any release. You should only use it directly in your code with extreme caution and knowing that
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
-        public object this[int index]
+        public object? this[int index]
         {
-            get
+            get => index switch
             {
-                switch (index)
-                {
-                    case 0:
-                        return _value0;
-                    case 1:
-                        return _value1;
-                    case 2:
-                        return _value2;
-                    default:
-                        throw new IndexOutOfRangeException();
-                }
-            }
+                0 => _value0,
+                1 => _value1,
+                2 => _value2,
+                _ => throw new IndexOutOfRangeException(),
+            };
             set
             {
                 switch (index)
@@ -5854,15 +5251,15 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
         public Snapshot(
-            [CanBeNull] T0 value0,
-            [CanBeNull] T1 value1)
+            [CanBeNull] T0? value0,
+            [CanBeNull] T1? value1)
         {
             _value0 = value0;
             _value1 = value1;
         }
 
-        private T0 _value0;
-        private T1 _value1;
+        private T0? _value0;
+        private T1? _value1;
 
         /// <summary>
         ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
@@ -5879,20 +5276,14 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     any release. You should only use it directly in your code with extreme caution and knowing that
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
-        public object this[int index]
+        public object? this[int index]
         {
-            get
+            get => index switch
             {
-                switch (index)
-                {
-                    case 0:
-                        return _value0;
-                    case 1:
-                        return _value1;
-                    default:
-                        throw new IndexOutOfRangeException();
-                }
-            }
+                0 => _value0,
+                1 => _value1,
+                _ => throw new IndexOutOfRangeException(),
+            };
             set
             {
                 switch (index)
@@ -5939,12 +5330,12 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
         public Snapshot(
-            [CanBeNull] T0 value0)
+            [CanBeNull] T0? value0)
         {
             _value0 = value0;
         }
 
-        private T0 _value0;
+        private T0? _value0;
 
         /// <summary>
         ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
@@ -5961,29 +5352,18 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal
         ///     any release. You should only use it directly in your code with extreme caution and knowing that
         ///     doing so can result in application failures when updating to a new Entity Framework Core release.
         /// </summary>
-        public object this[int index]
+        public object? this[int index]
         {
-            get
-            {
-                switch (index)
+            get => index switch
                 {
-                    case 0:
-                        return _value0;
-                    default:
-                        throw new IndexOutOfRangeException();
-                }
-            }
-            set
-            {
-                switch (index)
+                    0 => _value0,
+                    _ => throw new IndexOutOfRangeException(),
+                };
+            set => _value0 = index switch
                 {
-                    case 0:
-                        _value0 = (T0)value;
-                        break;
-                    default:
-                        throw new IndexOutOfRangeException();
-                }
-            }
+                    0 => (T0)value,
+                    _ => throw new IndexOutOfRangeException(),
+                };
         }
     }
 }

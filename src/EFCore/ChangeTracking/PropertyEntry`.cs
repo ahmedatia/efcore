@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 
+#nullable enable
+
 namespace Microsoft.EntityFrameworkCore.ChangeTracking
 {
     /// <summary>
@@ -58,7 +60,7 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking
         ///     the change tracker is aware of the change and <see cref="ChangeTracker.DetectChanges" /> is not required
         ///     for the context to detect the change.
         /// </summary>
-        public new virtual TProperty CurrentValue
+        public new virtual TProperty? CurrentValue
         {
             get => InternalEntry.GetCurrentValue<TProperty>(Metadata);
             [param: CanBeNull] set => base.CurrentValue = value;
@@ -70,7 +72,7 @@ namespace Microsoft.EntityFrameworkCore.ChangeTracking
         ///     useful in disconnected scenarios where entities are retrieved with one context instance and
         ///     saved with a different context instance.
         /// </summary>
-        public new virtual TProperty OriginalValue
+        public new virtual TProperty? OriginalValue
         {
             get => InternalEntry.GetOriginalValue<TProperty>(Metadata);
             [param: CanBeNull] set => base.OriginalValue = value;
