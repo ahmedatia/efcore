@@ -175,7 +175,7 @@ namespace Microsoft.EntityFrameworkCore.Metadata.Conventions
 
                 var identifyingMemberInfo = property.PropertyInfo ?? (MemberInfo?)property.FieldInfo;
                 if ((identifyingMemberInfo != null
-                        && identifyingMemberInfo.IsSameAs(otherProperty.PropertyInfo ?? (MemberInfo?)otherProperty.FieldInfo))
+                        && identifyingMemberInfo.IsSameAs(otherProperty.PropertyInfo ?? (MemberInfo?)otherProperty.FieldInfo!))
                     || (property.IsPrimaryKey() && otherProperty.IsPrimaryKey())
                     || (property.IsConcurrencyToken && otherProperty.IsConcurrencyToken)
                     || (!property.Builder.CanSetColumnName(null) && !otherProperty.Builder.CanSetColumnName(null)))

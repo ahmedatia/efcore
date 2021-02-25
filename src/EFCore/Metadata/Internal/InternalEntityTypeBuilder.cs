@@ -854,7 +854,7 @@ namespace Microsoft.EntityFrameworkCore.Metadata.Internal
                     }
                 }
 
-                if (existingProperty.GetIdentifyingMemberInfo().IsOverridenBy(memberInfo))
+                if (existingProperty.GetIdentifyingMemberInfo()?.IsOverridenBy(memberInfo) == true)
                 {
                     if (configurationSource.HasValue)
                     {
@@ -1004,7 +1004,7 @@ namespace Microsoft.EntityFrameworkCore.Metadata.Internal
             {
                 if (!configurationSource.Overrides(conflictingProperty.GetConfigurationSource())
                     && (!(conflictingProperty is ServiceProperty derivedServiceProperty)
-                        || !memberInfo.IsOverridenBy(derivedServiceProperty.GetIdentifyingMemberInfo())))
+                        || !memberInfo.IsOverridenBy(derivedServiceProperty.GetIdentifyingMemberInfo()!)))
                 {
                     return false;
                 }
@@ -3721,7 +3721,7 @@ namespace Microsoft.EntityFrameworkCore.Metadata.Internal
             if (existingNavigation != null)
             {
                 Check.DebugAssert(
-                    memberInfo == null || memberInfo.IsSameAs(existingNavigation.GetIdentifyingMemberInfo()),
+                    memberInfo == null || memberInfo.IsSameAs(existingNavigation.GetIdentifyingMemberInfo()!),
                     "Expected memberInfo to be the same on the existing navigation");
 
                 Check.DebugAssert(

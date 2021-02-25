@@ -45,16 +45,17 @@ namespace Microsoft.EntityFrameworkCore.Internal
 
             options.Freeze();
 
-            _activator = CreateActivator(options);
-
-            if (_activator == null)
+            var activator = CreateActivator(options);
+            if (activator == null)
             {
                 throw new InvalidOperationException(
                     CoreStrings.PoolingContextCtorError(typeof(TContext).ShortDisplayName()));
             }
+
+            _activator = activator;
         }
 
-        private static Func<DbContext> CreateActivator(DbContextOptions<TContext> options)
+        private static Func<DbContext>? CreateActivator(DbContextOptions<TContext> options)
         {
             var constructors
                 = typeof(TContext).GetTypeInfo().DeclaredConstructors
